@@ -1,0 +1,20 @@
+### update user
+PATCH http://localhost:3000/users/2
+Content-Type: application/json
+
+{
+    "email": "tola@gmail.com",
+    "password": "tola"
+}
+
+### create user
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "email": "test@gmail.com",
+    "password": "pass//"
+}
+
+### delete user
+DELETE http://localhost:3000/users/del/10

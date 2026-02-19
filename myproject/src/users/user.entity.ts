@@ -1,0 +1,18 @@
+import { Entity, Column, PrimaryGeneratedColumn, AfterInsert } from "typeorm";
+
+@Entity()
+export class User{
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column()
+    email: string;
+    
+    @Column()
+    password: string;
+
+    @AfterInsert()
+    logInster(){
+        console.log("Nouvelle utilisateur créé")
+    }
+}
