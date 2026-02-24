@@ -1,5 +1,5 @@
 ### update user
-PATCH http://localhost:3000/users/2
+PATCH http://localhost:3000/users/update/2
 Content-Type: application/json
 
 {
@@ -8,7 +8,7 @@ Content-Type: application/json
 }
 
 ### create user
-POST http://localhost:3000/users
+POST http://localhost:3000/users/singup
 Content-Type: application/json
 
 {
@@ -17,4 +17,13 @@ Content-Type: application/json
 }
 
 ### delete user
-DELETE http://localhost:3000/users/del/10
+DELETE http://localhost:3000/users/del/11
+
+### delete all user
+DELETE http://localhost:3000/users/delall
+
+### findAll
+GET http://localhost:3000/users/findAll
+
+### findOne
+GET http://localhost:3000/users/find/18
