@@ -1,0 +1,23 @@
+# Dépendances Node.js
+node_modules/
+
+# Dossier de build / compilation
+dist/
+
+# Fichiers d'environnement (Très important pour ne pas fuiter de mots de passe ou clés API)
+.env
+.env.local
+.env.*.local
+
+# Logs de debug et d'erreurs (npm, yarn, pnpm)
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Fichiers générés par les outils de couverture de tests (ex: Jest)
+coverage/
+
+# Fichiers système (macOS / Windows)
+.DS_Store
+Thumbs.db
