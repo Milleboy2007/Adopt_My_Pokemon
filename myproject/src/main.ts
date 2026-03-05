@@ -4,8 +4,13 @@ import { ValidationPipe } from '@nestjs/common';
 // import { ClassSerializerInterceptor } from '@nestjs/common';
 // import { Reflector } from '@nestjs/core';
 
+const cookieSession = require('cookie-session')
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.use(cookieSession({
+    keys: ['my_little_secret']
+  }));
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true,
     forbidNonWhitelisted: true,

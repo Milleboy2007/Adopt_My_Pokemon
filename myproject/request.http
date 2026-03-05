@@ -8,13 +8,27 @@ Content-Type: application/json
 }
 
 ### create user
-POST http://localhost:3000/users/singup
+POST http://localhost:3000/users/signup
 Content-Type: application/json
 
 {
-    "email": "test@gmail.com",
+    "email": "toi@gmail.com",
     "password": "pass//"
 }
+#### Sign In
+POST http://localhost:3000/users/signin
+Content-Type: application/json
+
+{
+    "email": "toi@gmail.com",
+    "password": "pass//"
+}
+
+### sign out
+POST http://localhost:3000/users/signout
+
+### who am i
+GET http://localhost:3000/users/whoami
 
 ### delete user
 DELETE http://localhost:3000/users/del/11
@@ -27,3 +41,4 @@ GET http://localhost:3000/users/findAll
 
 ### findOne
 GET http://localhost:3000/users/find/18
+
