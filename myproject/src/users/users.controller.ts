@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, Patch, Post, Get, UseInterceptors, Session, NotFoundException} from '@nestjs/common';
+import { Body, Controller, Delete, Param, Patch, Post, Get, UseInterceptors, Session, NotFoundException, UseGuards} from '@nestjs/common';
 import { UsersService } from './services/users.service';
 import { CreateUser } from 'src/users/dto/create-user.dto';
 import { UpdateUser } from 'src/users/dto/update-user.dto';
@@ -7,8 +7,9 @@ import { Serialize, SerializeInterceptor } from 'src/interceptors/serialize.inte
 import { UserDTO } from "src/users/dto/user.dto";
 import { AuthService } from './services/auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
-import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 import { User } from './user.entity';
+import { AuthGuard } from 'src/guard/auth.guard';
+import { AdmAuthGuard } from 'src/guard/admAuth.guards';
 
 
 @Controller('users')
@@ -30,6 +31,7 @@ export class UsersController {
     }
 
     // @UseInterceptors(CurrentUserInterceptor)
+    @UseGuards(AuthGuard)
     @Get('/whoami')
     whoami(@CurrentUser() user: User){
         return user;
@@ -40,6 +42,7 @@ export class UsersController {
         session.userId = null;
     }
 
+    @UseGuards(AdmAuthGuard)
     @Patch('update/:id')
     updateUser(@Param('id') id: string, @Body() body: UpdateUser){
         return this.usersService.updateUser(parseInt(id), body);
@@ -59,6 +62,7 @@ export class UsersController {
         return this.usersService.findUser(parseInt(id));
     }
 
+    @UseGuards(AdmAuthGuard)
     @Serialize(UserDTO)
     @Get('findAll')
     findAll(){

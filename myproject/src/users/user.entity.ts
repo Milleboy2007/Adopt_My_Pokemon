@@ -17,4 +17,7 @@ export class User{
     logInster(){
         console.log("Nouvelle utilisateur créé")
     }
+
+    @Column({default: false})
+    admin: boolean
 }
