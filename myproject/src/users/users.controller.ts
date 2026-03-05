@@ -6,6 +6,9 @@ import { UpdateUser } from 'src/users/dto/update-user.dto';
 import { Serialize, SerializeInterceptor } from 'src/interceptors/serialize.inteceptor';
 import { UserDTO } from "src/users/dto/user.dto";
 import { AuthService } from './services/auth.service';
+import { CurrentUser } from './decorators/current-user.decorator';
+import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
+import { User } from './user.entity';
 
 
 @Controller('users')
@@ -26,9 +29,10 @@ export class UsersController {
         return user;
     }
 
+    // @UseInterceptors(CurrentUserInterceptor)
     @Get('/whoami')
-    whoami(@Session() session: any){
-        return this.authService.whoami(session.userId);
+    whoami(@CurrentUser() user: User){
+        return user;
     }
 
     @Post('/signout')
