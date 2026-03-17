@@ -1,5 +1,4 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
-import { UsersService } from "src/users/services/users.service";
 
 export class AdmAuthGuard implements CanActivate{
 

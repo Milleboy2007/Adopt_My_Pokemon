@@ -1,7 +1,7 @@
 import { ExecutionContext, NestInterceptor, CallHandler, UseInterceptors } from "@nestjs/common";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-import { plainToClass, plainToInstance } from "class-transformer";
+import { plainToInstance } from "class-transformer";
 
 interface ClassConstructer{
     new (...args:any[]): {};
@@ -17,12 +17,10 @@ export class SerializeInterceptor implements NestInterceptor{
 
     intercept(context: ExecutionContext, handler: CallHandler): Observable<any> {
         //before the request is handled by the route handler
-        // console.log('before...',context);
 
         return handler.handle().pipe(
             map((data:any) => {
                 // before the response is sent to the client
-                // console.log('after...',data);
                 return plainToInstance(this.dto, data, {
                     excludeExtraneousValues: true
                 })
