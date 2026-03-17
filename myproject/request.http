@@ -1,0 +1,53 @@
+### update user
+PATCH http://localhost:3000/users/update/21
+Content-Type: application/json
+
+{
+    "email": "tola@gmail.com",
+    "password": "tola"
+}
+
+### create user
+POST http://localhost:3000/users/signup
+Content-Type: application/json
+
+{
+    "email": "User@gmail.com",
+    "password": "User"
+}
+#### Sign In Admin
+POST http://localhost:3000/users/signin
+Content-Type: application/json
+
+{
+    "email": "admin@test.com",
+    "password": "admin"
+}
+
+### Sign in User
+POST http://localhost:3000/users/signin
+Content-Type: application/json
+
+{
+    "email": "User@gmail.com",
+    "password": "User"
+}
+
+### sign out
+POST http://localhost:3000/users/signout
+
+### who am i
+GET http://localhost:3000/users/whoami
+
+### delete user
+DELETE http://localhost:3000/users/del/11
+
+### delete all user
+DELETE http://localhost:3000/users/delall
+
+### findAll
+GET http://localhost:3000/users/findAll
+
+### findOne
+GET http://localhost:3000/users/find/18
+
