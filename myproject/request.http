@@ -1,10 +1,10 @@
 ### update user
-PATCH http://localhost:3000/users/update/21
+PATCH http://localhost:3000/users/update/2
 Content-Type: application/json
 
 {
     "email": "tola@gmail.com",
-    "password": "tola"
+    "password": "124"
 }
 
 ### create user
@@ -29,8 +29,8 @@ POST http://localhost:3000/users/signin
 Content-Type: application/json
 
 {
-    "email": "User@gmail.com",
-    "password": "User"
+    "email": "tola@gmail.com",
+    "password": "1234"
 }
 
 ### sign out

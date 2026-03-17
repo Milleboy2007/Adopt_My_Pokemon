@@ -2,6 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { UsersService } from './users.service';
 import { randomBytes, scrypt as _scrypt } from 'crypto';
 import { promisify } from 'util';
+import { User } from '../user.entity';
 
 const scrypt = promisify(_scrypt)
 
@@ -45,4 +46,26 @@ export class AuthService {
         if (!userId) throw new NotFoundException('User not connected');
         return this.usersService.findUser(userId);
     }
+
+
+    async updateUser(id:number, attrs: Partial<User>){
+        const user = await(this.usersService.findUser(id));
+
+        if (!user) throw new NotFoundException("user not found");
+
+        if(attrs.password){
+            const salt = randomBytes(8).toString('hex');
+    
+            const hash = (await scrypt(attrs.password, salt, 32)) as Buffer;
+    
+            const result = salt+'.'+hash.toString('hex');
+
+            attrs.password = result;
+        }
+
+        Object.assign(user, attrs);
+        console.log( attrs.password)
+        return this.usersService.updateUser(id, attrs);
+    }
+
 }
