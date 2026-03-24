@@ -3,6 +3,10 @@ import { PokemonController } from './pokemon/pokemon.controller';
 import { InteractionsController } from './interactions/interactions.controller';
 import { PokemonService } from './pokemon/pokemon.service';
 import { InteractionsService } from './interactions/interactions.service';
+import { InteractionsService } from './interactions/interactions.service';
+import { InteractionsController } from './interactions/interactions.controller';
+import { PokemonService } from './pokemon/pokemon.service';
+import { PokemonController } from './pokemon/pokemon.controller';
 
 @Module({
   controllers: [PokemonController, InteractionsController],
