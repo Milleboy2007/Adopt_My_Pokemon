@@ -50,4 +50,3 @@ GET http://localhost:3000/users/findAll
 
 ### findOne
 GET http://localhost:3000/users/find/18
-
