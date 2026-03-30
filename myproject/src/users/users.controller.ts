@@ -29,6 +29,15 @@ export class UsersController {
         return user;
     }
 
+
+    @UseGuards(AdmAuthGuard)
+    @Post('/createAdmin')
+    async createAdmim(@Body() body:CreateAdmin, @Session() session: any){
+        const user = await this.authService.createAdmin(body.email, body.password);
+        session.userId = user.id;
+        return user;
+    }
+
     @UseGuards(AuthGuard)
     @Get('/whoami')
     whoami(@CurrentUser() user: User){

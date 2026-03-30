@@ -15,6 +15,11 @@ export class UsersService {
         return this.usersRepository.save(newUser);
     }
 
+    createAdmin(email: string, password: string){
+        const newUser = this.usersRepository.create({email, password});
+        return this.usersRepository.save(newUser);
+    }
+
     async findUser(id:number){
         
         const user = await(this.usersRepository.findOneBy({id}));

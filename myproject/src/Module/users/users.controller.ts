@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Param, Patch, Post, Get, Session, UseGuards} from '@nestjs/common';
 import { UsersService } from './services/users.service';
 import { CreateUser } from 'src/users/dto/create-user.dto';
+import { CreateAdmin } from 'src/Module/users/dto/create-admin.dto';
 import { UpdateUser } from 'src/users/dto/update-user.dto';
 import { Serialize } from 'src/interceptors/serialize.inteceptor';
 import { UserDTO } from "src/users/dto/user.dto";
@@ -25,6 +26,15 @@ export class UsersController {
     @Post('/signin')
     async singIn(@Body() body:CreateUser, @Session() session: any){
         const user = await this.authService.signIn(body.email, body.password);
+        session.userId = user.id;
+        return user;
+    }
+
+
+    @UseGuards(AdmAuthGuard)
+    @Post('/createAdmin')
+    async createAdmim(@Body() body:CreateAdmin, @Session() session: any){
+        const user = await this.authService.createAdmin(body.email, body.password);
         session.userId = user.id;
         return user;
     }
