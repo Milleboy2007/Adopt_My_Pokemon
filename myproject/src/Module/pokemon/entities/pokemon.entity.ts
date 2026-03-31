@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { IsString, IsInt, IsBoolean, Min, IsArray, IsIn } from 'class-validator';
+import { Interaction } from './interaction.entity';
 
 @Entity()
 export class Pokemon {
@@ -18,7 +19,7 @@ export class Pokemon {
   @IsInt()
   poids: number;
 
-  @Column()
+  @Column('simple-array')
   @IsArray()
   type: string[];
 

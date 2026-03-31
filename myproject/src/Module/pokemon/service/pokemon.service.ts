@@ -34,12 +34,4 @@ export class PokemonService {
     deletePokemon(id:number){
         return this.pokemonRepository.delete(id);
     }
-
-    newPokeInteraction(){
-        
-    }
-
-    getAllInteraction(){
-        
-    }
 }

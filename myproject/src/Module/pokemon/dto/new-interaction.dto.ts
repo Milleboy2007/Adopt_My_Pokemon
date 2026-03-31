@@ -1,6 +1,6 @@
 import { IsString, IsNotEmpty, IsInt } from 'class-validator';
 
-export class newInteraction{
+export class NewInteraction{
     
     @IsNotEmpty()
     @IsString()
@@ -9,8 +9,4 @@ export class newInteraction{
     @IsNotEmpty()
     @IsInt()
     userId: number; // ID du Client concerné
-
-    @IsNotEmpty()
-    @IsInt()
-    pokemonId: number;
 }
