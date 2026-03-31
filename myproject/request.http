@@ -50,3 +50,39 @@ GET http://localhost:3000/users/findAll
 
 ### findOne
 GET http://localhost:3000/users/find/18
+
+-------------------------------------------------------------------------------------------------
+
+### Create adoption
+POST http://localhost:3000/adoptions/create
+Content-Type: application/json
+
+{
+    "pokemonId": 1
+}
+
+### Get pending adoptions
+GET http://localhost:3000/adoptions/pending
+
+### Get approved adoptions
+GET http://localhost:3000/adoptions/approve
+
+### Get rejected adoptions
+GET http://localhost:3000/adoptions/reject
+
+### Get one adoption by id
+GET http://localhost:3000/adoptions/1
+
+### Approve adoption
+PUT http://localhost:3000/adoptions/1/approve
+Content-Type: application/json
+
+{}
+
+### Reject adoption
+PUT http://localhost:3000/adoptions/1/reject
+Content-Type: application/json
+
+{
+    "reason": "Le formulaire est incomplet"
+}

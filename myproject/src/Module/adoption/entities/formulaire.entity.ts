@@ -9,7 +9,7 @@ export class Formulaire {
   @Column('text')
   @IsString()
   @IsNotEmpty()
-  contenu: string; // Questions/Réponses formatées
+  contenu: string;
 
   @Column()
   @IsInt()
