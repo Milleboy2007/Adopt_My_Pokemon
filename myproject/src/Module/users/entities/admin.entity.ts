@@ -1,12 +1,9 @@
 import { Entity, Column } from 'typeorm';
 import { IsInt, Min, Max } from 'class-validator';
-import { AbstractUser } from './abstract-user.entity';
+import { User } from './user.entity';
 
 @Entity()
-export class Admin extends AbstractUser {
-  @Column({ default: 1 })
-  @IsInt()
-  @Min(1)
-  @Max(5)
-  niveauAcces: number;
+export class Admin extends User {
+  @Column()
+  hireDate:Date;
 }

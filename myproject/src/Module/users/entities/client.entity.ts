@@ -1,14 +1,12 @@
-import { Entity, Column } from 'typeorm';
-import { IsNumber, Min } from 'class-validator';
-import { AbstractUser } from './abstract-user.entity';
+import { Entity, Column, PrimaryGeneratedColumn, AfterInsert } from 'typeorm';
+import { User } from './user.entity';
 
 @Entity()
-export class Client extends AbstractUser {
+export class Client extends User {
   @Column()
-  @IsNumber()
-  @Min(0)
-  credits: number;
-
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  dateInscription: Date;
+  adoptionLimit:number;
+  @Column()
+  berries:number;
+  @Column()
+  xpPotions:number;
 }

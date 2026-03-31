@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { User } from '../user.entity';
+import { User } from '../entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -15,8 +15,8 @@ export class UsersService {
         return this.usersRepository.save(newUser);
     }
 
-    createAdmin(email: string, password: string, permLvl: number){
-        const newUser = this.usersRepository.create({email, password, permLvl});
+    createAdmin(email: string, password: string){
+        const newUser = this.usersRepository.create({email, password});
         return this.usersRepository.save(newUser);
     }
 

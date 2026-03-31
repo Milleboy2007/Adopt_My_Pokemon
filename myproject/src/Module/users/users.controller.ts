@@ -1,16 +1,16 @@
 import { Body, Controller, Delete, Param, Patch, Post, Get, Session, UseGuards} from '@nestjs/common';
 import { UsersService } from './services/users.service';
 import { CreateUser } from 'src/users/dto/create-user.dto';
+import { CreateAdmin } from 'src/Module/users/dto/create-admin.dto';
 import { UpdateUser } from 'src/users/dto/update-user.dto';
 import { Serialize } from 'src/interceptors/serialize.inteceptor';
 import { UserDTO } from "src/users/dto/user.dto";
 import { AuthService } from './services/auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
-import { User } from './user.entity';
+import { User } from './entities/user.entity';
 import { AuthGuard } from 'src/guard/auth.guard';
-import { SuperAdmAuthGuard } from 'src/guard/superAdmAuth.guards';
 import { AdmAuthGuard } from 'src/guard/admAuth.guards';
-import { CreateAdmin } from './dto/create-admin.dto';
+
 
 @Controller('users')
 export class UsersController {
@@ -31,10 +31,10 @@ export class UsersController {
     }
 
 
-    @UseGuards(SuperAdmAuthGuard)
+    @UseGuards(AdmAuthGuard)
     @Post('/createAdmin')
     async createAdmim(@Body() body:CreateAdmin, @Session() session: any){
-        const user = await this.authService.createAdmin(body.email, body.password, body.permLvl);
+        const user = await this.authService.createAdmin(body.email, body.password);
         session.userId = user.id;
         return user;
     }
@@ -43,12 +43,6 @@ export class UsersController {
     @Get('/whoami')
     whoami(@CurrentUser() user: User){
         return user;
-    }
-
-    @UseGuards(AuthGuard)
-    @Get('/creds')
-    getCreds(@CurrentUser() user: User){
-        return user.pokecred;
     }
 
     @Post('/signout')
