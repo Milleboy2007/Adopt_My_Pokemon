@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { PokemonController } from './controller/pokemon.controller';
-import { PokemonService } from './service/pokemon.service';
-import { InteractionsService } from './service/interactions.service';
+import { PokemonController } from './pokemon/pokemon.controller';
+import { InteractionsController } from './interactions/interactions.controller';
+import { PokemonService } from './pokemon/pokemon.service';
+import { InteractionsService } from './interactions/interactions.service';
 
 @Module({
-  controllers: [PokemonController],
+  controllers: [PokemonController, InteractionsController],
   providers: [PokemonService, InteractionsService]
 })
 export class PokemonModule {}
