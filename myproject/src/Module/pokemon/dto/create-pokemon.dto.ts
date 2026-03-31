@@ -9,10 +9,12 @@ export class CreatePokemon{
 
   @IsNumber()
   @IsPositive()
+  @IsNotEmpty()
   grandeur: number;
 
   @IsNumber()
   @IsPositive()
+  @IsNotEmpty()
   poids: number;
 
   @IsArray()
