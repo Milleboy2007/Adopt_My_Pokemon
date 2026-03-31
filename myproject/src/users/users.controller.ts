@@ -8,8 +8,9 @@ import { AuthService } from './services/auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
 import { User } from './user.entity';
 import { AuthGuard } from 'src/guard/auth.guard';
+import { SuperAdmAuthGuard } from 'src/guard/superAdmAuth.guards';
 import { AdmAuthGuard } from 'src/guard/admAuth.guards';
-
+import { CreateAdmin } from './dto/create-admin.dto';
 
 @Controller('users')
 export class UsersController {
@@ -30,7 +31,7 @@ export class UsersController {
     }
 
 
-    @UseGuards(AdmAuthGuard)
+    @UseGuards(SuperAdmAuthGuard)
     @Post('/createAdmin')
     async createAdmim(@Body() body:CreateAdmin, @Session() session: any){
         const user = await this.authService.createAdmin(body.email, body.password);

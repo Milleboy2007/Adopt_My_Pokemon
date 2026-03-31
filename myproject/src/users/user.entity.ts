@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, AfterInsert } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, AfterInsert, Check } from "typeorm";
 
 @Entity()
 export class User{
@@ -11,11 +11,12 @@ export class User{
     @Column()
     password: string;
 
+    @Column()
+    @Check("permLvl BETWEEN 1 AND 3")
+    permLvl: number = 1;
+
     @AfterInsert()
     logInster(){
         console.log("Nouvelle utilisateur créé")
     }
-
-    @Column({default: false})
-    admin: boolean
 }
