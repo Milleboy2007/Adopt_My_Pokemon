@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { IsString, IsInt } from 'class-validator';
+import { Pokemon } from './pokemon.entity';
 
 @Entity()
 export class Interaction {
@@ -20,4 +21,8 @@ export class Interaction {
   @Column()
   @IsInt()
   pokemonId: number;
+
+  @ManyToOne(() => Pokemon,{onDelete: 'CASCADE'})
+  @JoinColumn({name: 'pokemonId'})
+  pokemon: Pokemon;
 }
