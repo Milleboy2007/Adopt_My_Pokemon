@@ -15,8 +15,8 @@ export class UsersService {
         return this.usersRepository.save(newUser);
     }
 
-    createAdmin(email: string, password: string){
-        const newUser = this.usersRepository.create({email, password});
+    createAdmin(email: string, password: string, permLvl: number){
+        const newUser = this.usersRepository.create({email, password, permLvl});
         return this.usersRepository.save(newUser);
     }
 

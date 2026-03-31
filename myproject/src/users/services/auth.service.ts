@@ -28,7 +28,7 @@ export class AuthService {
 
     }
 
-    async createAdmin(email: string, password: string){
+    async createAdmin(email: string, password: string, permLvl: number){
         const existingUser = await this.usersService.findUserByEmail(email);
 
         if(existingUser.length) throw new BadRequestException("Email in use");
@@ -39,7 +39,7 @@ export class AuthService {
 
         const result = salt+'.'+hash.toString('hex');
 
-        const user = this.usersService.createAdmin(email, result);
+        const user = this.usersService.createAdmin(email, result, permLvl);
 
         return user;
 

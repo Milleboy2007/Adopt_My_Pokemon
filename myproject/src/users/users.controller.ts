@@ -34,7 +34,7 @@ export class UsersController {
     @UseGuards(SuperAdmAuthGuard)
     @Post('/createAdmin')
     async createAdmim(@Body() body:CreateAdmin, @Session() session: any){
-        const user = await this.authService.createAdmin(body.email, body.password);
+        const user = await this.authService.createAdmin(body.email, body.password, body.permLvl);
         session.userId = user.id;
         return user;
     }
@@ -43,6 +43,12 @@ export class UsersController {
     @Get('/whoami')
     whoami(@CurrentUser() user: User){
         return user;
+    }
+
+    @UseGuards(AuthGuard)
+    @Get('/creds')
+    getCreds(@CurrentUser() user: User){
+        return user.pokecred;
     }
 
     @Post('/signout')

@@ -1,4 +1,4 @@
-import { IsString, IsEmail, IsNotEmpty } from "class-validator";
+import { IsString, IsEmail, IsNotEmpty, IsNumber } from "class-validator";
 
 export class CreateAdmin{
     @IsEmail()
@@ -8,4 +8,8 @@ export class CreateAdmin{
     @IsString()
     @IsNotEmpty()
     password: string
+
+    @IsNumber()
+    @IsNotEmpty()
+    permLvl: number
 }

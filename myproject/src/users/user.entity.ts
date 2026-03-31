@@ -15,6 +15,9 @@ export class User{
     @Check("permLvl BETWEEN 1 AND 3")
     permLvl: number = 1;
 
+    @Column()
+    pokecred: number = 0;
+
     @AfterInsert()
     logInster(){
         console.log("Nouvelle utilisateur créé")
