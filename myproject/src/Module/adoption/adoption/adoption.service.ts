@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Adoption, AdoptionStatus } from '../entities/adoption.entity';
 import { Pokemon } from 'src/Module/pokemon/entities/pokemon.entity';
-import { User } from 'src/Module/users/entities/user.entity';
+import { User } from 'src/users/user.entity';
 
 
 @Injectable()
@@ -26,7 +26,7 @@ export class AdoptionService {
       throw new NotFoundException('Utilisateur introuvable');
     }
 
-    if (user.admin) {
+    if (user.permLvl >= 2) {
       throw new BadRequestException(
         "Un administrateur ne peut pas créer une demande d'adoption client",
       );
@@ -105,7 +105,7 @@ export class AdoptionService {
 
     const admin = await this.usersRepository.findOneBy({ id: adminId });
 
-    if (!admin || !admin.admin) {
+    if (!admin || admin.permLvl < 2) {
       throw new BadRequestException('Administrateur invalide');
     }
 
@@ -144,7 +144,7 @@ export class AdoptionService {
 
     const admin = await this.usersRepository.findOneBy({ id: adminId });
 
-    if (!admin || !admin.admin) {
+    if (!admin || admin.permLvl < 2) {
       throw new BadRequestException('Administrateur invalide');
     }
 
