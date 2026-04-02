@@ -1,5 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
-import { IsInt, IsString } from 'class-validator';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { IsInt,IsOptional, IsString } from 'class-validator';
+
+export enum AdoptionStatus {
+  PENDING = 'EN_ATTENTE',
+  APPROVED = 'APPROUVEE',
+  REJECTED = 'REFUSEE',
+}
 
 @Entity()
 export class Adoption {
@@ -7,7 +13,10 @@ export class Adoption {
   id: number;
 
   @CreateDateColumn()
-  dateAdoption: Date;
+  dateCreation: Date;
+
+  @UpdateDateColumn()
+  dateModification: Date;
 
   @Column()
   @IsInt()
@@ -17,7 +26,17 @@ export class Adoption {
   @IsInt()
   idPokemon: number;
 
-  @Column({ default: 'EN_ATTENTE' })
+  @Column({ type: 'text', default: AdoptionStatus.PENDING })
   @IsString()
-  statut: string;
+  statut: AdoptionStatus;
+
+  @Column({ type: 'text', nullable: true })
+  @IsOptional()
+  @IsString()
+  rejectionReason?: string | null;
+
+  @Column({ nullable: true })
+  @IsOptional()
+  @IsInt()
+  processedByAdminId?: number | null;
 }
