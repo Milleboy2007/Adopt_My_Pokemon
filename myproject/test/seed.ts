@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../src/app.module';
-import { AuthService } from '../src/users/services/auth.service';
+import { AuthService } from '../src/Module/users/services/auth.service';
 import { DataSource } from 'typeorm';
 
 async function bootstrap() {

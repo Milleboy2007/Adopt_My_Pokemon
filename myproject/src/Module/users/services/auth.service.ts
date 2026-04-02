@@ -2,7 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { UsersService } from './users.service';
 import { randomBytes, scrypt as _scrypt } from 'crypto';
 import { promisify } from 'util';
-import { User } from '../entities/user.entity';
+import { User } from '../user.entity';
 
 const scrypt = promisify(_scrypt)
 
@@ -28,7 +28,7 @@ export class AuthService {
 
     }
 
-    async createAdmin(email: string, password: string){
+    async createAdmin(email: string, password: string, permLvl: number){
         const existingUser = await this.usersService.findUserByEmail(email);
 
         if(existingUser.length) throw new BadRequestException("Email in use");
@@ -39,7 +39,7 @@ export class AuthService {
 
         const result = salt+'.'+hash.toString('hex');
 
-        const user = this.usersService.createAdmin(email, result);
+        const user = this.usersService.createAdmin(email, result, permLvl);
 
         return user;
 
@@ -55,6 +55,8 @@ export class AuthService {
         const hash = (await scrypt(password, salt, 32)) as Buffer;
 
         if (hash.toString("hex") !== storedHash) throw new BadRequestException('Invalide Password');
+
+        existingUser.log.push(new Date());
 
         return existingUser;
     }

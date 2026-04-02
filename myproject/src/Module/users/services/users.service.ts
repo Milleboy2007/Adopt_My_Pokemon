@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { User } from '../entities/user.entity';
+import { User } from '../user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Not, Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
@@ -15,8 +15,8 @@ export class UsersService {
         return this.usersRepository.save(newUser);
     }
 
-    createAdmin(email: string, password: string){
-        const newUser = this.usersRepository.create({email, password});
+    createAdmin(email: string, password: string, permLvl: number){
+        const newUser = this.usersRepository.create({email, password, permLvl});
         return this.usersRepository.save(newUser);
     }
 
@@ -32,16 +32,36 @@ export class UsersService {
     async findAllUsers(){
         const allUser = await(this.usersRepository.find());
 
-        if(allUser.length == 0) throw new NotFoundException("none user found");
+        if(allUser.length == 0) throw new NotFoundException("No users found");
 
         return allUser;
+    }
+
+    async findAllClients(){
+        const allUsers = await(this.usersRepository.find());
+
+        if(allUsers.length ==0) throw new NotFoundException("No clients found");
+
+        const allClients = allUsers.filter(c => c.permLvl === 1);
+
+        return allClients;
+    }
+
+    async findAllAdmins(){
+        const allUsers = await(this.usersRepository.find());
+
+        if(allUsers.length == 0) throw new NotFoundException("No admins found");
+
+        const allAdmins = allUsers.filter(c => c.permLvl != 1);
+
+        return allAdmins;
     }
 
     async deleteUser(id: number){
         return this.usersRepository.delete(id);
     }
 
-    delAll(){
+    async delAll(){
         return this.usersRepository.deleteAll();
     }
 
@@ -51,5 +71,35 @@ export class UsersService {
 
     async findUserByEmail(email: string){
         return this.usersRepository.findBy({email});
+    }
+
+    async getLogs(id:number){
+        var usr = await(this.findUser(id));
+        return usr.log;
+    }
+
+    async getInteractions(id:number){
+        var usr = await(this.findUser(id));
+        return usr.interactions;
+    }
+
+    async getAdoptions(id:number){
+        var usr = await(this.findUser(id));
+        return usr.adoptions;
+    }
+
+    async getForms(id:number){
+        var usr = await(this.findUser(id));
+        return usr.forms;
+    }
+
+    async getTransactions(id:number){
+        var usr = await(this.findUser(id));
+        return usr.transactions;
+    }
+
+    async getPokemons(id:number){
+        var usr = await(this.findUser(id));
+        return usr.pokemons;
     }
 }
