@@ -35,8 +35,8 @@ export class Adoption {
   @IsString()
   rejectionReason?: string | null;
 
-  @Column({ nullable: true })
+  @Column()
   @IsOptional()
   @IsInt()
-  processedByAdminId?: number | null;
+  processedByAdminId?: number;
 }
