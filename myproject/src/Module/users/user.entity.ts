@@ -35,7 +35,7 @@ export class User{
     @OneToMany(() => Formulaire, (form) => form.idClient, { cascade: true })
     forms: Formulaire[];
 
-    @OneToMany(() => Pokemon, (pokemon) => pokemon.idClient, { cascade: true })
+    //@OneToMany(() => Pokemon, (pokemon) => pokemon.idClient, { cascade: true })
     pokemons: Pokemon[];
 
     @Column("simple-array")

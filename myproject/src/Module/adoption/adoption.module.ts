@@ -6,7 +6,7 @@ import { FormsService } from './forms/forms.service';
 import { Adoption } from './entities/adoption.entity';
 import { Formulaire } from './entities/formulaire.entity';
 import { Pokemon } from '../pokemon/entities/pokemon.entity';
-import { User } from 'src/users/user.entity';
+import { User } from 'src/Module/users/user.entity';
 import { FormsController } from './forms/forms.controller';
 
 @Module({
