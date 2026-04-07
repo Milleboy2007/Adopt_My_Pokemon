@@ -1,8 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { IsString, IsInt, Min } from 'class-validator';
 
+
 @Entity()
 export class Quiz {
+  
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -12,7 +14,7 @@ export class Quiz {
 
   @Column()
   @IsString()
-  difficulte: string;
+  difficulte: string[];
 
   @Column({ default: 10 })
   @IsInt()
