@@ -126,6 +126,7 @@ export class AdoptionService {
     adoption.rejectionReason = null;
 
     pokemon.estAdopte = true;
+    pokemon.idClient = adoption.idClient;
 
     await this.pokemonRepository.save(pokemon);
     await this.adoptionRepository.save(adoption);

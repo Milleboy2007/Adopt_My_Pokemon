@@ -22,8 +22,8 @@ export class User{
     @Column()
     pokecred: number = 0;
 
-    @Column('simple-json', { nullable: true })
-    log: string[];
+    @Column("simple-array")
+    log: Date[] = [];
 
     @OneToMany(() => Interaction, (interaction) => interaction.userId, { cascade: true })
     interactions: Interaction[];
@@ -34,11 +34,12 @@ export class User{
     @OneToMany(() => Formulaire, (form) => form.idClient, { cascade: true })
     forms: Formulaire[];
 
-    @OneToMany(() => Pokemon, (pokemon) => pokemon.idClient, { cascade: true })
-    pokemons: Pokemon[];
+    //@OneToMany(() => Pokemon, (pokemon) => pokemon.idClient, { cascade: true })
+    @Column("simple-array")
+    pokemons: Pokemon[] = [];
 
     @Column("simple-array")
-    transactions: string[];
+    transactions: string[] = [];
 
 
     @AfterInsert()

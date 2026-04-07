@@ -36,5 +36,5 @@ export class Adoption {
   rejectionReason?: string | null;
 
   @Column({ type: 'int', default: 0 })
-  processedByAdminId: number | null;
+  processedByAdminId: number;
 }

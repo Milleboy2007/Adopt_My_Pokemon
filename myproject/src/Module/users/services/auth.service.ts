@@ -56,7 +56,7 @@ export class AuthService {
 
         if (hash.toString("hex") !== storedHash) throw new BadRequestException('Invalide Password');
 
-        existingUser.log.push(new Date().toISOString());
+        existingUser.log.push(new Date());
 
         return existingUser;
     }

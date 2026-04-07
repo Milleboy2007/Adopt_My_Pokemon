@@ -4,40 +4,36 @@ import { AuthService } from '../src/Module/users/services/auth.service';
 import { DataSource } from 'typeorm';
 
 async function bootstrap() {
-  // Création du contexte NestJS sans lancer le serveur HTTP
   const app = await NestFactory.createApplicationContext(AppModule);
   
-  // Récupération de la connexion à la base de données et du service d'authentification
   const dataSource = app.get(DataSource);
   const authService = app.get(AuthService);
 
   console.log('🌱 Démarrage du script de seed...');
 
   try {
-    // 1. Vider la table user et réinitialiser les IDs de SQLite
-    await dataSource.query(`DELETE FROM user`);
-    await dataSource.query(`DELETE FROM sqlite_sequence WHERE name='user'`);
-    console.log('🧹 Table "user" vidée et IDs réinitialisés.');
+    // 1. Synchronisation forcée (Supprime et recrée TOUTES les tables proprement)
+    // Cela remplace les requêtes SQL brutes et garantit que la table 'user' existe.
+    await dataSource.synchronize(true);
+    console.log('🧹 Base de données synchronisée et réinitialisée.');
 
     // 2. Création des utilisateurs de test
     console.log('⏳ Création des utilisateurs en cours...');
     
-    // Création d'un utilisateur Administrateur
+    // Création d'un utilisateur Administrateur (Niveau 3)
     const admin = await authService.signUp('admin@test.com', 'admin');
-    // On force le statut admin à true directement en base de données
-    await dataSource.query(`UPDATE user SET admin = 1 WHERE id = ?`, [admin.id]);
-    console.log('👤 Administrateur créé : admin@test.com');
+    await dataSource.query(`UPDATE user SET permLvl = 3 WHERE id = ?`, [admin.id]);
+    console.log('👑 Administrateur de niveau 3 créé : admin@test.com');
     
-    // Création d'utilisateurs normaux
+    // Création d'un utilisateur normal (Niveau 1 par défaut)
     await authService.signUp('test@test.com', 'test');
-    console.log('👤 Utilisateur créé : test@test.com');
+    console.log('👤 Utilisateur normal créé : test@test.com');
 
     console.log('✅ Base de données initialisée avec succès !');
 
   } catch (error) {
     console.error("❌ Erreur lors de l'exécution du seed :", error);
   } finally {
-    // Fermeture propre de l'application
     await app.close();
   }
 }

@@ -11,8 +11,7 @@ export class Pokemon {
   @IsString()
   nom: string;
 
-  @Column()
-  @IsInt()
+  @Column({ default: 0 })
   idClient: number;
 
   @Column()

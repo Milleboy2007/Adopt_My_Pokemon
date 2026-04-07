@@ -12,8 +12,8 @@ POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-    "email": "User@gmail.com",
-    "password": "User"
+    "email": "test@test.com",
+    "password": "test"
 }
 
 ### update user
@@ -34,7 +34,7 @@ Content-Type: application/json
     "password": "User"
 }
 #### Sign In Admin
-POST http://localhost:3000/users/signin
+POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
@@ -43,22 +43,22 @@ Content-Type: application/json
 }
 
 ### Sign in User
-POST http://localhost:3000/users/signin
+POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-    "email": "tola@gmail.com",
-    "password": "1234"
+    "email": "test@test.com",
+    "password": "test"
 }
 
 ### sign out
 POST http://localhost:3000/users/signout
 
 ### who am i
-GET http://localhost:3000/users/whoami
+GET http://localhost:3000/auth/whoami
 
 ### delete user
-DELETE http://localhost:3000/users/del/11
+DELETE http://localhost:3000/users/del/3
 
 ### delete all user
 DELETE http://localhost:3000/users/delall
@@ -67,16 +67,32 @@ DELETE http://localhost:3000/users/delall
 GET http://localhost:3000/users/findAll
 
 ### findOne
-GET http://localhost:3000/users/find/18
+GET http://localhost:3000/users/4
 
 -------------------------------------------------------------------------------------------------
+
+### Create pokemon
+POST http://localhost:3000/pokemons/create
+Content-Type: application/json
+
+{
+    "nom": "Pikachu",
+    "grandeur": 40,
+    "poids": 6,
+    "type": ["Electrik"],
+    "niveau": 5,
+    "prix": 100
+}
+
+### Delete pokemon 1
+DELETE http://localhost:3000/pokemons/delete/1
 
 ### Create adoption
 POST http://localhost:3000/adoptions/create
 Content-Type: application/json
 
 {
-    "pokemonId": 1
+    "pokemonId": 2
 }
 
 ### Get pending adoptions
@@ -89,10 +105,10 @@ GET http://localhost:3000/adoptions/approve
 GET http://localhost:3000/adoptions/reject
 
 ### Get one adoption by id
-GET http://localhost:3000/adoptions/1
+GET http://localhost:3000/adoptions/2
 
 ### Approve adoption
-PUT http://localhost:3000/adoptions/1/approve
+PUT http://localhost:3000/adoptions/2/approve
 Content-Type: application/json
 
 {}
