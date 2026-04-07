@@ -22,24 +22,24 @@ export class User{
     @Column()
     pokecred: number = 0;
 
-    @Column()
-    log: Date[];
+    @Column("simple-array")
+    log: Date[] = [];
 
     @OneToMany(() => Interaction, (interaction) => interaction.userId, { cascade: true })
     interactions: Interaction[];
 
     @OneToMany(() => Adoption, (adoption) => adoption.idClient, { cascade: true })
-    @Column()
     adoptions: Adoption[];
 
     @OneToMany(() => Formulaire, (form) => form.idClient, { cascade: true })
     forms: Formulaire[];
 
     //@OneToMany(() => Pokemon, (pokemon) => pokemon.idClient, { cascade: true })
-    pokemons: Pokemon[];
+    @Column("simple-array")
+    pokemons: Pokemon[] = [];
 
     @Column("simple-array")
-    transactions: string[];
+    transactions: string[] = [];
 
 
     @AfterInsert()
