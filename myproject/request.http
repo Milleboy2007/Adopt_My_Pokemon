@@ -25,19 +25,19 @@ Content-Type: application/json
 }
 
 ### Sign in User
-POST http://localhost:3000/users/signin
+POST http://localhost:3000/auth/signin
 Content-Type: application/json
 
 {
-    "email": "tola@gmail.com",
-    "password": "1234"
+    "email": "test@test.com",
+    "password": "test"
 }
 
 ### sign out
 POST http://localhost:3000/users/signout
 
 ### who am i
-GET http://localhost:3000/users/whoami
+GET http://localhost:3000/auth/whoami
 
 ### delete user
 DELETE http://localhost:3000/users/del/11
