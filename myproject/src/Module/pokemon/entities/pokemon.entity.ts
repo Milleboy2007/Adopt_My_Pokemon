@@ -41,4 +41,8 @@ export class Pokemon {
   @Min(0)
   @IsInt()
   prix: number;
+
+  @Column({default: 0})
+  @IsInt()
+  idClient: number
 }
