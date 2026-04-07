@@ -1,5 +1,4 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
-import { Admin } from "src/Module/users/entities/admin.entity";
 
 export class AdmAuthGuard implements CanActivate{
 

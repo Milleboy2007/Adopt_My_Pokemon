@@ -13,6 +13,10 @@ export class Pokemon {
 
   @Column()
   @IsInt()
+  idClient: number;
+
+  @Column()
+  @IsInt()
   grandeur: number;
   
   @Column()

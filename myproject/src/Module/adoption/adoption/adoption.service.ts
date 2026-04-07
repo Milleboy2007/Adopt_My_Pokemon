@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Adoption, AdoptionStatus } from '../entities/adoption.entity';
 import { Pokemon } from 'src/Module/pokemon/entities/pokemon.entity';
-import { User } from 'src/users/user.entity';
+import { User } from 'src/Module/users/user.entity';
 
 
 @Injectable()

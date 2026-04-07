@@ -1,0 +1,48 @@
+import { Entity, Column, PrimaryGeneratedColumn, AfterInsert, Check, OneToMany } from "typeorm";
+import { Interaction } from "../pokemon/entities/interaction.entity";
+import { Adoption } from "../adoption/entities/adoption.entity";
+import { Formulaire } from "../adoption/entities/formulaire.entity";
+import { Pokemon } from "../pokemon/entities/pokemon.entity";
+
+@Entity()
+export class User{
+    @PrimaryGeneratedColumn()
+    id: number;
+
+    @Column()
+    email: string;
+    
+    @Column()
+    password: string;
+
+    @Column()
+    @Check("permLvl BETWEEN 1 AND 3")
+    permLvl: number = 1;
+
+    @Column()
+    pokecred: number = 0;
+
+    @Column('simple-json', { nullable: true })
+    log: string[];
+
+    @OneToMany(() => Interaction, (interaction) => interaction.userId, { cascade: true })
+    interactions: Interaction[];
+
+    @OneToMany(() => Adoption, (adoption) => adoption.idClient, { cascade: true })
+    adoptions: Adoption[];
+
+    @OneToMany(() => Formulaire, (form) => form.idClient, { cascade: true })
+    forms: Formulaire[];
+
+    @OneToMany(() => Pokemon, (pokemon) => pokemon.idClient, { cascade: true })
+    pokemons: Pokemon[];
+
+    @Column("simple-array")
+    transactions: string[];
+
+
+    @AfterInsert()
+    logInster(){
+        console.log("Nouvel utilisateur créé")
+    }
+}

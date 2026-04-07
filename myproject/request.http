@@ -1,3 +1,21 @@
+### create user
+POST http://localhost:3000/auth/signup
+Content-Type: application/json
+
+{
+    "email": "User@gmail.com",
+    "password": "User"
+}
+
+### sign in user
+POST http://localhost:3000/auth/signin
+Content-Type: application/json
+
+{
+    "email": "User@gmail.com",
+    "password": "User"
+}
+
 ### update user
 PATCH http://localhost:3000/users/update/2
 Content-Type: application/json
