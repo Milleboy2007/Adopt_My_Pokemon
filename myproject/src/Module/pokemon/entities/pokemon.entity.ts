@@ -2,6 +2,27 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { IsString, IsInt, IsBoolean, Min, IsArray, IsIn } from 'class-validator';
 import { Interaction } from './interaction.entity';
 
+export enum PokeType{
+  Normal = "Normal",
+  FIRE = "Fire",
+  WATER = "Water",
+  GRASS = "Grass",
+  ELECTRIC = "Electric",
+  ICE = "Ice",
+  FIGHTING = "Fighting",
+  POISON = "Poison",
+  GROUND = "Ground",
+  FLYING = "Flying",
+  PSYCHIC = "Psychic",
+  BUG = "Bug",
+  ROCK = "Rock",
+  GHOST = "Ghost",
+  DRAGON = "Dragon",
+  DARK = "Dark",
+  STEEL = "Steel", 
+  FAIRY = "Fairy"
+}
+
 @Entity()
 export class Pokemon {
   @PrimaryGeneratedColumn()
@@ -21,7 +42,7 @@ export class Pokemon {
 
   @Column('simple-array')
   @IsArray()
-  type: string[];
+  type: PokeType[];
 
   @Column({ default: 1 })
   @IsInt()

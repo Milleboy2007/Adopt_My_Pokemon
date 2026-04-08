@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Pokemon } from '../entities/pokemon.entity';
+import { Pokemon, PokeType } from '../entities/pokemon.entity';
 
 @Injectable()
 export class PokemonService {
@@ -26,7 +26,7 @@ export class PokemonService {
         return poke;
     }
 
-    createPokemon(nom: string, grandeur: number, poids: number, type: string[], niveau: number, prix: number){
+    createPokemon(nom: string, grandeur: number, poids: number, type: PokeType[], niveau: number, prix: number){
         const newPoke = this.pokemonRepository.create({nom, grandeur, poids, type, niveau, prix});
         return this.pokemonRepository.save(newPoke);
     }

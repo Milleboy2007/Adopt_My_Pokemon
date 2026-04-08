@@ -5,6 +5,7 @@ import { AuthGuard } from 'src/guard/auth.guard';
 import { AdmAuthGuard } from 'src/guard/admAuth.guards';
 import { NewInteraction } from '../dto/new-interaction.dto';
 import { InteractionsService } from '../service/interactions.service';
+import { PokeType } from '../entities/pokemon.entity';
 
 @Controller('pokemons')
 export class PokemonController {
@@ -29,7 +30,7 @@ export class PokemonController {
     @UseGuards(AdmAuthGuard)
     @Post('/create')
     CreatePokemon(@Body() body:CreatePokemon){
-        return this.pokemonService.createPokemon(body.nom, body.grandeur, body.poids, body.type, body.niveau, body.prix);
+        return this.pokemonService.createPokemon(body.nom, body.grandeur, body.poids, body.type as PokeType[], body.niveau, body.prix);
     }
 
     @UseGuards(AdmAuthGuard)
