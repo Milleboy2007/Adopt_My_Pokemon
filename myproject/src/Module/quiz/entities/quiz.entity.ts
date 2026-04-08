@@ -14,7 +14,7 @@ export class Quiz {
 
   @Column()
   @IsString()
-  difficulte: string[];
+  difficulte: string;
 
   @Column({ default: 10 })
   @IsInt()

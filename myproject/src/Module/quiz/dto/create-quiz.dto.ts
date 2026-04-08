@@ -1,10 +1,7 @@
 import { IsString, IsNumber, Min, IsArray, IsNotEmpty, IsPositive, ArrayNotEmpty, IsInt, IsIn } from 'class-validator';
 
 
-export class CreatePokemon{
-    @IsNotEmpty()
-    @IsNumber()
-    id: number;
+export class CreateQuiz{
 
     @IsNotEmpty()
     @IsString()
@@ -12,10 +9,11 @@ export class CreatePokemon{
 
     @IsNotEmpty()
     @IsString()
-    difficulte: string[];
+    difficulte: string;
 
     @IsNotEmpty()
     @IsNumber()
+    @IsPositive()
     @Min(0)
     recompenseCredits: number;
 }

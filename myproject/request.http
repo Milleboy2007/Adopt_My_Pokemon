@@ -86,3 +86,22 @@ Content-Type: application/json
 {
     "reason": "Le formulaire est incomplet"
 }
+
+-------------------------------------------------------------------------------------------------
+
+### Creer un quiz 
+POST http://localhost:3000/quiz/create
+Content-Type: application/json
+ 
+{
+    "titre": "Who is that pokemon ??",
+    "difficulte": "EASY",
+    "recompenseCredits": 10
+}
+
+### find Quiz by id
+GET http://localhost:3000/quiz/2
+
+### delete quiz by id
+
+GET http://localhost:3000/quiz/delete/2
