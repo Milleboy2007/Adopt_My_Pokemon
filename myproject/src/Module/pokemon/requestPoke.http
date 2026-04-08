@@ -1,3 +1,5 @@
+### ff
+GET http://localhost:3000/pokemons/tt
 
 ### Find all poke
 GET http://localhost:3000/pokemons

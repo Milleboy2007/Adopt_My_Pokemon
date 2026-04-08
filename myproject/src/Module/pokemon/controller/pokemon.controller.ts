@@ -15,6 +15,11 @@ export class PokemonController {
         private interactionService: InteractionsService
     ){}
 
+    @Get('/tt')
+    get(){
+        return this.pokemonService.getAPIPoke();
+    }
+
     @UseGuards(AuthGuard)
     @Get()
     getAllPokemon(){

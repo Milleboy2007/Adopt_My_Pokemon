@@ -10,6 +10,11 @@ export class PokemonService {
         private pokemonRepository: Repository<Pokemon>
     ){}
 
+    async getAPIPoke(){
+        await fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0')
+            .then(data => console.log(data.json()));
+    }
+
     async findAllPokemon(){
         const allPoke = await(this.pokemonRepository.find());
 
