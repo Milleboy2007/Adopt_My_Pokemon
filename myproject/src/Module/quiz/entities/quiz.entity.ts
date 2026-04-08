@@ -1,8 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 import { IsString, IsInt, Min } from 'class-validator';
 
+
 @Entity()
 export class Quiz {
+  
   @PrimaryGeneratedColumn()
   id: number;
 
