@@ -3,24 +3,24 @@ import { IsString, IsInt, IsBoolean, Min, IsArray, IsIn } from 'class-validator'
 import { Interaction } from './interaction.entity';
 
 export enum PokeType{
-  Normal = "Normal",
-  FIRE = "Fire",
-  WATER = "Water",
-  GRASS = "Grass",
-  ELECTRIC = "Electric",
-  ICE = "Ice",
-  FIGHTING = "Fighting",
-  POISON = "Poison",
-  GROUND = "Ground",
-  FLYING = "Flying",
-  PSYCHIC = "Psychic",
-  BUG = "Bug",
-  ROCK = "Rock",
-  GHOST = "Ghost",
-  DRAGON = "Dragon",
-  DARK = "Dark",
-  STEEL = "Steel", 
-  FAIRY = "Fairy"
+  Normal = "normal",
+  FIRE = "fire",
+  WATER = "water",
+  GRASS = "grass",
+  ELECTRIC = "electric",
+  ICE = "ice",
+  FIGHTING = "fighting",
+  POISON = "poison",
+  GROUND = "ground",
+  FLYING = "flying",
+  PSYCHIC = "psychic",
+  BUG = "bug",
+  ROCK = "rock",
+  GHOST = "ghost",
+  DRAGON = "dragon",
+  DARK = "dark",
+  STEEL = "steel", 
+  FAIRY = "fairy"
 }
 
 @Entity()

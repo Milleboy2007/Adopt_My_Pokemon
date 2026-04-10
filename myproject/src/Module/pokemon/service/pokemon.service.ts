@@ -11,8 +11,19 @@ export class PokemonService {
     ){}
 
     async getAPIPoke(){
+        var allApiPoke = new Array
         await fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0')
-            .then(data => console.log(data.json()));
+            .then(rep => rep.json())
+            .then(data => data.results.forEach(poke => {
+                allApiPoke.push(poke)
+            }))
+        
+        var types = new Array<PokeType>
+        await fetch(allApiPoke[1].url)
+            .then(rep => rep.json())
+            .then(data => data.types.forEach(elem => {
+                types.push(elem.type.name)
+            })).then(a => console.log(types))
     }
 
     async findAllPokemon(){
