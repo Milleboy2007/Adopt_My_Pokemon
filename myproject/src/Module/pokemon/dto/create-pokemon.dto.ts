@@ -1,4 +1,5 @@
-import { IsString, IsNumber, Min, IsArray, IsNotEmpty, IsPositive, ArrayNotEmpty, IsInt } from 'class-validator';
+import { IsString, IsNumber, Min, IsArray, IsNotEmpty, IsPositive, ArrayNotEmpty, IsInt, IsEnum } from 'class-validator';
+import { PokeType } from '../entities/pokemon.entity';
 
 
 export class CreatePokemon{
@@ -19,8 +20,8 @@ export class CreatePokemon{
 
   @IsArray()
   @ArrayNotEmpty({message:'Un pokémon doit avoir aumoin un type'})
-  @IsString({each:true})
-  type: string[];
+  @IsEnum(PokeType, {each:true})
+  type: PokeType[];
 
   @IsInt()
   @Min(1)

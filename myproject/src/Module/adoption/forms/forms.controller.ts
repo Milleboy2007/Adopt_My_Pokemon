@@ -3,6 +3,8 @@ import { FormsService } from './forms.service';
 import { CreateFormulaireDto } from '../dto/create-formulaire.dto';
 import { AuthGuard } from 'src/guard/auth.guard';
 import { AdmAuthGuard } from 'src/guard/admAuth.guards';
+import { CurrentUser } from 'src/Module/users/decorators/current-user.decorator';
+import { User } from 'src/Module/users/user.entity';
 
 @Controller('forms')
 export class FormsController {
@@ -10,8 +12,8 @@ export class FormsController {
 
   @UseGuards(AuthGuard)
   @Post('create')
-  create(@Body() body: CreateFormulaireDto) {
-    return this.formsService.create(body);
+  create(@CurrentUser() user: User, @Body() body: CreateFormulaireDto) {
+    return this.formsService.create(body, user.id);
   }
 
   @UseGuards(AuthGuard, AdmAuthGuard)

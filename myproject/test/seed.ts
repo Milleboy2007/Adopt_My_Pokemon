@@ -12,12 +12,11 @@ async function bootstrap() {
   console.log('🌱 Démarrage du script de seed...');
 
   try {
-    // 1. Synchronisation forcée (Supprime et recrée TOUTES les tables proprement)
-    // Cela remplace les requêtes SQL brutes et garantit que la table 'user' existe.
+    // Synchronisation forcée (Supprime et recrée TOUTES les tables proprement)
     await dataSource.synchronize(true);
     console.log('🧹 Base de données synchronisée et réinitialisée.');
 
-    // 2. Création des utilisateurs de test
+    // Création des utilisateurs de test
     console.log('⏳ Création des utilisateurs en cours...');
     
     // Création d'un utilisateur Administrateur (Niveau 3)

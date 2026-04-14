@@ -11,8 +11,9 @@ export class FormsService {
     private formulaireRepository: Repository<Formulaire>,
   ) {}
 
-  create(body: CreateFormulaireDto) {
+  create(body: CreateFormulaireDto, id: number) {
     const formulaire = this.formulaireRepository.create({
+      idClient: id,
       ...body,
       statut: 'EN_ATTENTE',
     });
