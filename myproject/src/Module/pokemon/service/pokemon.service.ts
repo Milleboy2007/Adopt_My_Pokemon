@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pokemon, PokeType } from '../entities/pokemon.entity';
@@ -10,20 +10,28 @@ export class PokemonService {
         private pokemonRepository: Repository<Pokemon>
     ){}
 
-    async getAPIPoke(){
-        var allApiPoke = new Array
-        await fetch('https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0')
+    // de 1 a 1350
+    async getAllAPIPoke(nb: number){
+        if (nb > 0 && nb <= 1350)
+        {await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${nb}`)
             .then(rep => rep.json())
-            .then(data => data.results.forEach(poke => {
-                allApiPoke.push(poke)
-            }))
-        
-        var types = new Array<PokeType>
-        await fetch(allApiPoke[1].url)
-            .then(rep => rep.json())
-            .then(data => data.types.forEach(elem => {
-                types.push(elem.type.name)
-            })).then(a => console.log(types))
+            .then(async data => {
+                const allPoke = data.results.map(poke => {
+                    return fetch(poke.url)
+                        .then(rep => rep.json())
+                        .then(async pokeData => {
+                            const nom = pokeData.name;
+                            const grandeur = pokeData.height; // décimètres (dm)
+                            const poids = pokeData.weight; // hectogrammes (hg)
+                            const type = pokeData.types.map(type => type.type.name);
+                            const niveau = 1;
+                            const prix = 0;
+                            return await this.createPokemon(nom, grandeur, poids, type, niveau, prix);
+                        })
+                    });
+                return await Promise.all(allPoke);
+            }
+        )} else throw new BadRequestException("Sa doit être entre 1 et 1350, pas plus pas moins");
     }
 
     async findAllPokemon(){

@@ -6,6 +6,7 @@ import { AdmAuthGuard } from 'src/guard/admAuth.guards';
 import { NewInteraction } from '../dto/new-interaction.dto';
 import { InteractionsService } from '../service/interactions.service';
 import { PokeType } from '../entities/pokemon.entity';
+import { SuperAdmAuthGuard } from 'src/guard/superAdmAuth.guards';
 
 @Controller('pokemons')
 export class PokemonController {
@@ -15,9 +16,10 @@ export class PokemonController {
         private interactionService: InteractionsService
     ){}
 
-    @Get('/tt')
-    get(){
-        return this.pokemonService.getAPIPoke();
+    @UseGuards(SuperAdmAuthGuard)
+    @Get('/loadAllAPIPoke/:nb')
+    get(@Param('nb', ParseIntPipe) nb:number){
+        return this.pokemonService.getAllAPIPoke(nb);
     }
 
     @UseGuards(AuthGuard)

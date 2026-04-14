@@ -1,5 +1,5 @@
-### ff
-GET http://localhost:3000/pokemons/tt
+### Load et crée tout les pokemons de l'api avec comme parametre le nombre de pokemon voule (1 a 1350)
+GET http://localhost:3000/pokemons/loadAllAPIPoke/20
 
 ### Find all poke
 GET http://localhost:3000/pokemons

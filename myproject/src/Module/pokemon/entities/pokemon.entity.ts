@@ -34,11 +34,11 @@ export class Pokemon {
 
   @Column()
   @IsInt()
-  grandeur: number;
+  grandeur: number; // décimètres (dm)
   
   @Column()
   @IsInt()
-  poids: number;
+  poids: number; // hectogrammes (hg)
 
   @Column('simple-array')
   @IsArray()
