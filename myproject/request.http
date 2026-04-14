@@ -120,3 +120,32 @@ Content-Type: application/json
 {
     "reason": "Le formulaire est incomplet"
 }
+
+-------------------------------------------------------------------------------------------------
+
+### Create formulaire
+POST http://localhost:3000/forms/create
+Content-Type: application/json
+
+{
+    "idClient": 1,
+    "nomComplet": "Diego Fanara",
+    "age": 27,
+    "typeLogement": "Appartement 2 1/2",
+    "aDejaEuPokemon": false,
+    "autresAnimauxMaison": "Un char",
+    "motivationAdoption": "Je veux adopter un pokemon jaune",
+    "typePokemonSouhaite": ["Electrik", "Feu"],
+    "tempsDisponibleParJour": "1 a 30minutes",
+    "engagementLongTerme": "jsais pas",
+    "gestionAdaptationPokemon": "Je vais essayer"
+}
+
+### Find all formulaires
+GET http://localhost:3000/forms
+
+### Find formulaire 1
+GET http://localhost:3000/forms/1
+
+### Delete formulaire 1
+DELETE http://localhost:3000/forms/delete/1
