@@ -68,6 +68,33 @@ Content-Type: application/json
 
 -------------------------------------------------------------------------------------------------
 
+### Create formulaire
+POST http://localhost:3000/forms/create
+Content-Type: application/json
+
+{
+    "nomComplet": "Diego Fanara",
+    "age": 27,
+    "typeLogement": "Appartement 2 1/2",
+    "aDejaEuPokemon": false,
+    "autresAnimauxMaison": "Un char",
+    "motivationAdoption": "Je veux adopter un pokemon jaune",
+    "typePokemonSouhaite": ["Electrik", "Feu"],
+    "tempsDisponibleParJour": "1 a 30minutes",
+    "engagementLongTerme": "jsais pas",
+    "gestionAdaptationPokemon": "Je vais essayer"
+}
+
+### Find all formulaires
+GET http://localhost:3000/forms
+
+### Find formulaire 2
+GET http://localhost:3000/forms/2
+
+### Delete formulaire 2
+DELETE http://localhost:3000/forms/delete/2
+-------------------------------------------------------------------------------------------------
+
 ### Creer un quiz 
 POST http://localhost:3000/quiz/create
 Content-Type: application/json
