@@ -1,0 +1,36 @@
+### Load et crée tout les pokemons de l'api avec comme parametre le nombre de pokemon voule (1 a 1350)
+GET http://localhost:3000/pokemons/loadAllAPIPoke/20
+
+### Find all poke
+GET http://localhost:3000/pokemons
+
+### Find one pokemon
+GET http://localhost:3000/pokemons/3
+
+### Create a new pokemon
+POST http://localhost:3000/pokemons/create
+Content-Type: application/json
+
+{
+    "nom": "test",
+    "grandeur": 12,
+    "poids": 21,
+    "type": ["Fire"],
+    "niveau": 100,
+    "prix": 1234
+}
+
+### Delete un pokemon par id
+DELETE http://localhost:3000/pokemons/delete/2
+
+### Faire une nouvelleinteraction
+POST http://localhost:3000/pokemons/1/newInteraction
+Content-Type: application/json
+
+{
+    "userId": 2,
+    "typeAction": "TEST"
+}
+
+### Get les interactions d'un pokemon
+GET http://localhost:3000/pokemons/1/interactions

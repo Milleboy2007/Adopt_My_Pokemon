@@ -26,7 +26,7 @@ export class AdoptionService {
       throw new NotFoundException('Utilisateur introuvable');
     }
 
-    if (user.permLvl) {
+    if (user.permLvl >= 2) {
       throw new BadRequestException(
         "Un administrateur ne peut pas créer une demande d'adoption client",
       );
@@ -105,7 +105,7 @@ export class AdoptionService {
 
     const admin = await this.usersRepository.findOneBy({ id: adminId });
 
-    if (!admin || !admin.permLvl) {
+    if (!admin || admin.permLvl < 2) {
       throw new BadRequestException('Administrateur invalide');
     }
 
@@ -126,6 +126,7 @@ export class AdoptionService {
     adoption.rejectionReason = null;
 
     pokemon.estAdopte = true;
+    pokemon.idClient = adoption.idClient;
 
     await this.pokemonRepository.save(pokemon);
     await this.adoptionRepository.save(adoption);
@@ -144,7 +145,7 @@ export class AdoptionService {
 
     const admin = await this.usersRepository.findOneBy({ id: adminId });
 
-    if (!admin || !admin.permLvl) {
+    if (!admin || admin.permLvl < 2) {
       throw new BadRequestException('Administrateur invalide');
     }
 

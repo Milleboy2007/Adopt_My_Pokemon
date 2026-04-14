@@ -19,7 +19,7 @@ export class UsersController {
     
     @UseGuards(AdmAuthGuard)
     @Serialize(UserDTO)
-    @Get()
+    @Get('/findAll')
     findAll(){
         return this.usersService.findAllUsers();
     }

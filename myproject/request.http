@@ -16,6 +16,22 @@ Content-Type: application/json
 ### Delete pokemon 1
 DELETE http://localhost:3000/pokemons/delete/1
 
+### Create pokemon
+POST http://localhost:3000/pokemons/create
+Content-Type: application/json
+
+{
+    "nom": "Pikachu",
+    "grandeur": 40,
+    "poids": 6,
+    "type": ["Electrik"],
+    "niveau": 5,
+    "prix": 100
+}
+
+### Delete pokemon 1
+DELETE http://localhost:3000/pokemons/delete/1
+
 ### Create adoption
 POST http://localhost:3000/adoptions/create
 Content-Type: application/json
