@@ -97,7 +97,7 @@ export class UsersController {
     }
 
     @UseGuards(AuthGuard)
-    @Get('creds')
+    @Get('myCreds')
     getCreds(@CurrentUser() user: User){
         return user.pokecred;
     }
@@ -129,7 +129,7 @@ export class UsersController {
 
 
     @UseGuards(AdmAuthGuard)
-    @Get('myPokemons')
+    @Get(':id/pokemons')
     getClientPokemons(@Param('id') id:string){
         return this.usersService.getPokemons(parseInt(id));
     }
