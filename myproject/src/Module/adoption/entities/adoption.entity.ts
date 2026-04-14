@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
 import { IsInt,IsOptional, IsString } from 'class-validator';
+import { User } from 'src/Module/users/user.entity';
 
 export enum AdoptionStatus {
   PENDING = 'EN_ATTENTE',
@@ -22,6 +23,9 @@ export class Adoption {
   @IsInt()
   idClient: number;
 
+  @ManyToOne(() => User, user => user.adoptions)
+  user: User
+  
   @Column()
   @IsInt()
   idPokemon: number;
