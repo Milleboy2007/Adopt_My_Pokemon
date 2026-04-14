@@ -1,75 +1,20 @@
-### create user
-POST http://localhost:3000/auth/signup
+# -------------------------------------------------------------------------------------------------
+
+### Create pokemon
+POST http://localhost:3000/pokemons/create
 Content-Type: application/json
 
 {
-    "email": "User@gmail.com",
-    "password": "User"
+    "nom": "Pikachu",
+    "grandeur": 40,
+    "poids": 6,
+    "type": ["Electrik"],
+    "niveau": 5,
+    "prix": 100
 }
 
-### sign in user
-POST http://localhost:3000/auth/signin
-Content-Type: application/json
-
-{
-    "email": "test@test.com",
-    "password": "test"
-}
-
-### update user
-PATCH http://localhost:3000/users/update/2
-Content-Type: application/json
-
-{
-    "email": "tola@gmail.com",
-    "password": "124"
-}
-
-### create user
-POST http://localhost:3000/users/signup
-Content-Type: application/json
-
-{
-    "email": "User@gmail.com",
-    "password": "User"
-}
-#### Sign In Admin
-POST http://localhost:3000/auth/signin
-Content-Type: application/json
-
-{
-    "email": "admin@test.com",
-    "password": "admin"
-}
-
-### Sign in User
-POST http://localhost:3000/auth/signin
-Content-Type: application/json
-
-{
-    "email": "test@test.com",
-    "password": "test"
-}
-
-### sign out
-POST http://localhost:3000/auth/signout
-
-### who am i
-GET http://localhost:3000/auth/whoami
-
-### delete user
-DELETE http://localhost:3000/users/del/3
-
-### delete all user
-DELETE http://localhost:3000/users/delall
-
-### findAll
-GET http://localhost:3000/users/findAll
-
-### findOne
-GET http://localhost:3000/users/4
-
--------------------------------------------------------------------------------------------------
+### Delete pokemon 1
+DELETE http://localhost:3000/pokemons/delete/1
 
 ### Create pokemon
 POST http://localhost:3000/pokemons/create
@@ -120,34 +65,6 @@ Content-Type: application/json
 {
     "reason": "Le formulaire est incomplet"
 }
-
--------------------------------------------------------------------------------------------------
-
-### Create formulaire
-POST http://localhost:3000/forms/create
-Content-Type: application/json
-
-{
-    "nomComplet": "Diego Fanara",
-    "age": 27,
-    "typeLogement": "Appartement 2 1/2",
-    "aDejaEuPokemon": false,
-    "autresAnimauxMaison": "Un char",
-    "motivationAdoption": "Je veux adopter un pokemon jaune",
-    "typePokemonSouhaite": ["Electrik", "Feu"],
-    "tempsDisponibleParJour": "1 a 30minutes",
-    "engagementLongTerme": "jsais pas",
-    "gestionAdaptationPokemon": "Je vais essayer"
-}
-
-### Find all formulaires
-GET http://localhost:3000/forms
-
-### Find formulaire 2
-GET http://localhost:3000/forms/2
-
-### Delete formulaire 2
-DELETE http://localhost:3000/forms/delete/2
 
 -------------------------------------------------------------------------------------------------
 
