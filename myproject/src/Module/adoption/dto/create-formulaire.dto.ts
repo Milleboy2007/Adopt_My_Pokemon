@@ -1,7 +1,41 @@
-import { IsString  } from 'class-validator';
+import { IsArray, IsBoolean, IsInt, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-export class createFormulaireDto {
-    @IsString()
-    contenu: string;
-  
+export class CreateFormulaireDto {
+
+  @IsString()
+  @IsNotEmpty()
+  nomComplet: string;
+
+  @IsInt()
+  age: number;
+
+  @IsString()
+  @IsNotEmpty()
+  typeLogement: string;
+
+  @IsBoolean()
+  aDejaEuPokemon: boolean;
+
+  @IsOptional()
+  @IsString()
+  autresAnimauxMaison?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  motivationAdoption: string;
+
+  @IsArray()
+  typePokemonSouhaite: string[];
+
+  @IsString()
+  @IsNotEmpty()
+  tempsDisponibleParJour: string;
+
+  @IsString()
+  @IsNotEmpty()
+  engagementLongTerme: string;
+
+  @IsString()
+  @IsNotEmpty()
+  gestionAdaptationPokemon: string;
 }

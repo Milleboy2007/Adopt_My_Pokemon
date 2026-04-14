@@ -1,31 +1,49 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from 'src/Module/users/user.entity';
-import { Formulaire } from '../entities/formulaire.entity'
-import { from, NotFoundError } from 'rxjs';
-import { error } from 'node:console';
-
+import { Formulaire } from '../entities/formulaire.entity';
+import { CreateFormulaireDto } from '../dto/create-formulaire.dto';
 
 @Injectable()
 export class FormsService {
-    constructor (
-        @InjectRepository(Formulaire)
-        private formsRepository: Repository <Formulaire>,
+  constructor(
+    @InjectRepository(Formulaire)
+    private formulaireRepository: Repository<Formulaire>,
+  ) {}
 
-        @InjectRepository(User)
-        private usersRepository: Repository <User>
-        
-    ) {}
+  create(body: CreateFormulaireDto, id: number) {
+    const formulaire = this.formulaireRepository.create({
+      idClient: id,
+      ...body,
+      statut: 'EN_ATTENTE',
+    });
 
-    async createFormulaire(formID: number, contenu: string, idClient: number){
-        const form = await this.formsRepository.findOneBy({id : formID})
+    return this.formulaireRepository.save(formulaire);
+  }
 
-        if (!form){
-            throw new NotFoundException("Le formulaire n'a pas ete trouver")
-        }
+  findAll() {
+    return this.formulaireRepository.find();
+  }
 
-        
+  async findOne(id: number) {
+    const formulaire = await this.formulaireRepository.findOneBy({ id });
 
+    if (!formulaire) {
+      throw new NotFoundException('Formulaire introuvable');
     }
+
+    return formulaire;
+  }
+
+  async delete(id: number) {
+    const formulaire = await this.formulaireRepository.findOneBy({ id });
+
+    if (!formulaire) {
+      throw new NotFoundException('Formulaire introuvable');
+    }
+
+    await this.formulaireRepository.remove(formulaire);
+
+    return { message: 'Formulaire supprime' };
+  }
 }
