@@ -16,4 +16,9 @@ export class CreateQuiz{
     @IsPositive()
     @Min(0)
     recompenseCredits: number;
+
+    @IsNotEmpty()
+    @IsInt()
+    @IsPositive()
+    nombreDeQuestions: number;
 }

@@ -4,6 +4,7 @@ import { AdmAuthGuard } from 'src/guard/admAuth.guards';
 import { CreateQuiz } from '../dto/create-quiz.dto';
 import { AUTH } from 'sqlite3';
 import { AuthGuard } from 'src/guard/auth.guard';
+import { Difficulte } from '../data/questions.data';
 
 @Controller('quiz')
 export class QuizController {
@@ -13,8 +14,8 @@ export class QuizController {
 
     @UseGuards(AdmAuthGuard)
     @Post('/create')
-    CreateQuiz(@Body() body:CreateQuiz){
-        return this.quizService.createQuiz(body.titre, body.difficulte, body.recompenseCredits);
+    CreateQuiz(@Body() body: CreateQuiz) {
+    return this.quizService.createQuiz(body.titre, body.difficulte, body.recompenseCredits, body.nombreDeQuestions);
     }
     
     @UseGuards(AuthGuard)
@@ -28,4 +29,6 @@ export class QuizController {
     deleteQuizById(@Param('id', ParseIntPipe) id: number){
         return this.quizService.deleteOneQuizById(id);
     }
+
+
 }

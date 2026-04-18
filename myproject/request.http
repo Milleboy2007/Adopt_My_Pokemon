@@ -100,9 +100,10 @@ POST http://localhost:3000/quiz/create
 Content-Type: application/json
  
 {
-    "titre": "Who is that pokemon ??",
+    "titre": "Quiz Pokémon",
     "difficulte": "EASY",
-    "recompenseCredits": 10
+    "recompenseCredits": 10,
+    "nombreDeQuestions": 5
 }
 
 ### find Quiz by id
