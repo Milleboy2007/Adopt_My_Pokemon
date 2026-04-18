@@ -30,5 +30,11 @@ export class QuizController {
         return this.quizService.deleteOneQuizById(id);
     }
 
+    @UseGuards(AuthGuard)
+    @Get()
+    findAllQuiz() {
+        return this.quizService.findAllQuiz()
+    }
+
 
 }
