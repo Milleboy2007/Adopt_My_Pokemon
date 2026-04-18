@@ -57,6 +57,13 @@ export class QuizService {
 
     }
 
+    async findAllQuiz() {
+        const quizzes = await this.quizRepository.find();
+         
+        if(quizzes.length === 0) throw new NotFoundException("No Quiz Found");
+
+        return quizzes;
+    }
     
     
 
