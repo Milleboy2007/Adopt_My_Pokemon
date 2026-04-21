@@ -21,12 +21,13 @@ export class PokemonService {
                         .then(rep => rep.json())
                         .then(async pokeData => {
                             const nom = pokeData.name;
+                            const img = pokeData.sprites.other.home.front_default;
                             const grandeur = pokeData.height; // décimètres (dm)
                             const poids = pokeData.weight; // hectogrammes (hg)
                             const type = pokeData.types.map(type => type.type.name);
                             const niveau = 1;
                             const prix = 0;
-                            return await this.createPokemon(nom, grandeur, poids, type, niveau, prix);
+                            return await this.createPokemon(nom, img, grandeur, poids, type, niveau, prix);
                         })
                     });
                 return await Promise.all(allPoke);
@@ -50,8 +51,8 @@ export class PokemonService {
         return poke;
     }
 
-    createPokemon(nom: string, grandeur: number, poids: number, type: PokeType[], niveau: number, prix: number){
-        const newPoke = this.pokemonRepository.create({nom, grandeur, poids, type, niveau, prix});
+    createPokemon(nom: string, img: string,  grandeur: number, poids: number, type: PokeType[], niveau: number, prix: number){
+        const newPoke = this.pokemonRepository.create({nom, img, grandeur, poids, type, niveau, prix});
         return this.pokemonRepository.save(newPoke);
     }
 
