@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { User } from 'src/Module/users/user.entity';
 
 @Entity()
 export class Formulaire {
@@ -10,6 +11,9 @@ export class Formulaire {
 
   @Column({ nullable: true })
   idAdoption: number;
+  
+  @ManyToOne(() => User, user => user.forms)
+  user: User
 
   @Column()
   nomComplet: string;

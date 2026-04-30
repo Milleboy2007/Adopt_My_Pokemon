@@ -20,4 +20,9 @@ export class Quiz {
   @IsInt()
   @Min(0)
   recompenseCredits: number;
+
+  @Column({ default: 0 })
+  @IsInt()
+  @Min(0)
+  nombreDeQuestions: number;
 }

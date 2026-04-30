@@ -1,75 +1,21 @@
-### create user
-POST http://localhost:3000/auth/signup
+# -------------------------------------------------------------------------------------------------
+
+### Create pokemon
+POST http://localhost:3000/pokemons/create
 Content-Type: application/json
 
 {
-    "email": "User@gmail.com",
-    "password": "User"
+    "nom": "Pikachu",
+    "img": "",
+    "grandeur": 40,
+    "poids": 6,
+    "type": ["electrik"],
+    "niveau": 5,
+    "prix": 100
 }
 
-### sign in user
-POST http://localhost:3000/auth/signin
-Content-Type: application/json
-
-{
-    "email": "test@test.com",
-    "password": "test"
-}
-
-### update user
-PATCH http://localhost:3000/users/update/2
-Content-Type: application/json
-
-{
-    "email": "tola@gmail.com",
-    "password": "124"
-}
-
-### create user
-POST http://localhost:3000/users/signup
-Content-Type: application/json
-
-{
-    "email": "User@gmail.com",
-    "password": "User"
-}
-#### Sign In Admin
-POST http://localhost:3000/auth/signin
-Content-Type: application/json
-
-{
-    "email": "admin@test.com",
-    "password": "admin"
-}
-
-### Sign in User
-POST http://localhost:3000/auth/signin
-Content-Type: application/json
-
-{
-    "email": "test@test.com",
-    "password": "test"
-}
-
-### sign out
-POST http://localhost:3000/auth/signout
-
-### who am i
-GET http://localhost:3000/auth/whoami
-
-### delete user
-DELETE http://localhost:3000/users/del/3
-
-### delete all user
-DELETE http://localhost:3000/users/delall
-
-### findAll
-GET http://localhost:3000/users/findAll
-
-### findOne
-GET http://localhost:3000/users/4
-
--------------------------------------------------------------------------------------------------
+### Delete pokemon 1
+DELETE http://localhost:3000/pokemons/delete/1
 
 ### Create pokemon
 POST http://localhost:3000/pokemons/create
@@ -148,7 +94,6 @@ GET http://localhost:3000/forms/2
 
 ### Delete formulaire 2
 DELETE http://localhost:3000/forms/delete/2
-
 -------------------------------------------------------------------------------------------------
 
 ### Creer un quiz 
@@ -156,9 +101,10 @@ POST http://localhost:3000/quiz/create
 Content-Type: application/json
  
 {
-    "titre": "Who is that pokemon ??",
+    "titre": "Quiz Pokémon",
     "difficulte": "EASY",
-    "recompenseCredits": 10
+    "recompenseCredits": 10,
+    "nombreDeQuestions": 5
 }
 
 ### find Quiz by id

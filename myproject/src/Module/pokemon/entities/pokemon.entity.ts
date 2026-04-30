@@ -33,6 +33,10 @@ export class Pokemon {
   nom: string;
 
   @Column()
+  @IsString()
+  img: string;
+
+  @Column()
   @IsInt()
   grandeur: number; // décimètres (dm)
   
