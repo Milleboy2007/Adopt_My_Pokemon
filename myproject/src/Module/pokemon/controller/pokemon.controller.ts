@@ -22,7 +22,6 @@ export class PokemonController {
         return this.pokemonService.getAllAPIPoke(nb);
     }
 
-    @UseGuards(AuthGuard)
     @Get()
     getAllPokemon(){
         return this.pokemonService.findAllPokemon();
