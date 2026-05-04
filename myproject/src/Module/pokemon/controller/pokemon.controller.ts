@@ -22,7 +22,6 @@ export class PokemonController {
         return this.pokemonService.getAllAPIPoke(nb);
     }
 
-    @UseGuards(AuthGuard)
     @Get()
     getAllPokemon(){
         return this.pokemonService.findAllPokemon();
@@ -37,7 +36,7 @@ export class PokemonController {
     @UseGuards(AdmAuthGuard)
     @Post('/create')
     CreatePokemon(@Body() body:CreatePokemon){
-        return this.pokemonService.createPokemon(body.nom, body.grandeur, body.poids, body.type as PokeType[], body.niveau, body.prix);
+        return this.pokemonService.createPokemon(body.nom, body.img, body.grandeur, body.poids, body.type as PokeType[], body.niveau, body.prix);
     }
 
     @UseGuards(AdmAuthGuard)

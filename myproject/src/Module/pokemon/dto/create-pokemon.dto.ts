@@ -8,6 +8,9 @@ export class CreatePokemon{
   @IsNotEmpty()
   nom: string;
 
+  @IsString()
+  img:string;
+
   @IsNumber()
   @IsPositive()
   @IsNotEmpty()

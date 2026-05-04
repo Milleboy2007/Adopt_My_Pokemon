@@ -13,9 +13,10 @@ Content-Type: application/json
 
 {
     "nom": "test",
+    "img": "",
     "grandeur": 12,
     "poids": 21,
-    "type": ["Fire"],
+    "type": ["fire"],
     "niveau": 100,
     "prix": 1234
 }

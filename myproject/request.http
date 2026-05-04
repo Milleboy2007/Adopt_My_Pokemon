@@ -6,9 +6,10 @@ Content-Type: application/json
 
 {
     "nom": "Pikachu",
+    "img": "",
     "grandeur": 40,
     "poids": 6,
-    "type": ["Electrik"],
+    "type": ["electrik"],
     "niveau": 5,
     "prix": 100
 }
