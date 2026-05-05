@@ -1,15 +1,17 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Quiz } from '../entities/quiz.entity'
-import { Not } from 'typeorm/browser';
+import { Quiz } from '../entities/quiz.entity';
 import { questionsData, Difficulte } from '../data/questions.data';
+import { UsersService } from 'src/Module/users/services/users.service';
+
 
 @Injectable()
 export class QuizService {
     constructor(
         @InjectRepository(Quiz)
-        private quizRepository: Repository<Quiz>
+        private quizRepository: Repository<Quiz>,
+        private userService: UsersService
     ){}
     getRandomQuestions(difficulte: Difficulte, numberOfQuestions: number) {
             const questions = questionsData[difficulte];
@@ -63,6 +65,17 @@ export class QuizService {
         return quizzes;
     }
     
+    async addRecompenseCredits(userId: number, quizId: number) {
+        const quiz = await this.findQuizById(quizId);
+        const user = await this.userService.findUser(userId);
+
+        const newCredits = user.pokecred + quiz.quiz.recompenseCredits;
+
+        await this.userService.updateUser(userId, {pokecred: newCredits});
+
+        return newCredits;
+
+    }
     
 
 }
