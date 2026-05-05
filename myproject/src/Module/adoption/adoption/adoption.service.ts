@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Adoption, AdoptionStatus } from '../entities/adoption.entity';
 import { Pokemon } from 'src/Module/pokemon/entities/pokemon.entity';
 import { User } from 'src/Module/users/user.entity';
+import { Formulaire } from '../entities/formulaire.entity';
 
 
 @Injectable()
@@ -12,6 +13,9 @@ export class AdoptionService {
     @InjectRepository(Adoption)
     private adoptionRepository: Repository<Adoption>,
 
+    @InjectRepository(Formulaire)
+    private formulaireRepository: Repository<Formulaire>,
+
     @InjectRepository(Pokemon)
     private pokemonRepository: Repository<Pokemon>,
 
@@ -19,7 +23,7 @@ export class AdoptionService {
     private usersRepository: Repository<User>,
   ) {}
 
-  async createAdoption(userId: number, pokemonId: number) {
+  async createAdoption(userId: number, pokemonId: number, formulaireId: number) { //Formulaire
     const user = await this.usersRepository.findOneBy({ id: userId });
 
     if (!user) {
@@ -54,9 +58,20 @@ export class AdoptionService {
       );
     }
 
+    const formulaire = await this.formulaireRepository.findOneBy({ id: formulaireId });
+
+    if (!formulaire) {
+      throw new NotFoundException('Formulaire introuvable');
+    }
+
+    if (formulaire.idClient !== userId) {
+      throw new BadRequestException("Ce formulaire n'appartient pas à cet utilisateur");
+    }
+
     const adoption = this.adoptionRepository.create({
       idClient: userId,
       idPokemon: pokemonId,
+      idFormulaire: formulaireId,
       statut: AdoptionStatus.PENDING,
     });
 
@@ -123,7 +138,7 @@ export class AdoptionService {
 
     adoption.statut = AdoptionStatus.APPROVED;
     adoption.processedByAdminId = adminId;
-    adoption.rejectionReason = null;
+    adoption.rejectionReason = "";
 
     pokemon.estAdopte = true;
     pokemon.idClient = adoption.idClient;
@@ -151,7 +166,7 @@ export class AdoptionService {
 
     adoption.statut = AdoptionStatus.REJECTED;
     adoption.processedByAdminId = adminId;
-    adoption.rejectionReason = reason?.trim() || null;
+    adoption.rejectionReason = reason?.trim() || "";
 
     return this.adoptionRepository.save(adoption);
   }

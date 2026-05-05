@@ -6,9 +6,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdoptionModule } from './Module/adoption/adoption.module';
 import { PokemonModule } from './Module/pokemon/pokemon.module';
 import { QuizModule } from './Module/quiz/quiz.module';
+import { SatisfactionFormModule } from './Module/formSatisfaction/satisfaction-form.module';
 
 @Module({
-  imports: [UsersModule, AdoptionModule, PokemonModule, QuizModule, TypeOrmModule.forRoot(
+  imports: [SatisfactionFormModule ,UsersModule, AdoptionModule, PokemonModule, QuizModule, TypeOrmModule.forRoot(
     {
       type: 'sqlite',
       database: 'db.sqlite',

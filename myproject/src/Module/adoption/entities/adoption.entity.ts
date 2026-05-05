@@ -1,5 +1,5 @@
+import { IsInt, IsOptional, IsString } from 'class-validator';
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
-import { IsInt,IsOptional, IsString } from 'class-validator';
 import { User } from 'src/Module/users/user.entity';
 
 export enum AdoptionStatus {
@@ -30,6 +30,9 @@ export class Adoption {
   @IsInt()
   idPokemon: number;
 
+  @Column({ nullable: true })
+  idFormulaire: number;
+
   @Column({ type: 'text', default: AdoptionStatus.PENDING })
   @IsString()
   statut: AdoptionStatus;
@@ -37,8 +40,9 @@ export class Adoption {
   @Column({ type: 'text', nullable: true })
   @IsOptional()
   @IsString()
-  rejectionReason?: string | null;
+  rejectionReason?: string;
 
   @Column({ type: 'int', default: 0 })
   processedByAdminId: number;
+
 }

@@ -1,7 +1,7 @@
 import { IsString, IsNumber, Min, IsArray, IsNotEmpty, IsPositive, ArrayNotEmpty, IsInt, IsIn } from 'class-validator';
 
 
-export class CreateQuiz{
+export class CreateQuizDto{
 
     @IsNotEmpty()
     @IsString()

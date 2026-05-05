@@ -12,7 +12,7 @@ export class AdoptionController {
   @UseGuards(AuthGuard)
   @Post('create')
   createAdoption(@Body() body: CreateAdoptionDto, @Session() session: any) {
-    return this.adoptionService.createAdoption(session.userId, body.pokemonId);
+    return this.adoptionService.createAdoption(session.userId, body.pokemonId, body.formulaireId);
   }
 
   @UseGuards(AuthGuard, AdmAuthGuard)

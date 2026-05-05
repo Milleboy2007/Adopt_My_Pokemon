@@ -1,7 +1,7 @@
 import { Body, Controller, Param, ParseIntPipe, Post, UseGuards, Get } from '@nestjs/common';
 import { QuizService } from './quiz.service';
 import { AdmAuthGuard } from 'src/guard/admAuth.guards';
-import { CreateQuiz } from '../dto/create-quiz.dto';
+import { CreateQuizDto } from '../dto/create-quiz.dto';
 import { AUTH } from 'sqlite3';
 import { AuthGuard } from 'src/guard/auth.guard';
 import { Difficulte } from '../data/questions.data';
@@ -14,7 +14,7 @@ export class QuizController {
 
     @UseGuards(AdmAuthGuard)
     @Post('/create')
-    CreateQuiz(@Body() body: CreateQuiz) {
+    CreateQuiz(@Body() body: CreateQuizDto) {
     return this.quizService.createQuiz(body.titre, body.difficulte, body.recompenseCredits, body.nombreDeQuestions);
     }
     
