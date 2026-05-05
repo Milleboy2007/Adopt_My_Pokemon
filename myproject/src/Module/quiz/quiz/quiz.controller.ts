@@ -36,5 +36,11 @@ export class QuizController {
         return this.quizService.findAllQuiz()
     }
 
+    @UseGuards(AuthGuard)
+    @Post('/addCredits')
+    addRecompenseCredits(@Body() body: {userId: number, quizId: number}) {
+        return this.quizService.addRecompenseCredits(body.userId, body.quizId);
+    }
+
 
 }

@@ -101,9 +101,9 @@ POST http://localhost:3000/quiz/create
 Content-Type: application/json
  
 {
-    "titre": "Quiz Pokémon",
-    "difficulte": "EASY",
-    "recompenseCredits": 10,
+    "titre": "Quiz Pokémon-J'aime les patates",
+    "difficulte": "HARD",
+    "recompenseCredits": 40,
     "nombreDeQuestions": 5
 }
 
@@ -113,3 +113,14 @@ GET http://localhost:3000/quiz/2
 ### delete quiz by id
 
 GET http://localhost:3000/quiz/delete/2
+
+
+### add recompense credits to user
+
+POST http://localhost:3000/quiz/addCredits
+Content-Type: application/json
+
+{
+    "userId": 2,
+    "quizId": 1
+}

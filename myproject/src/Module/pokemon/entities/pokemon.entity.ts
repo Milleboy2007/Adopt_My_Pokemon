@@ -32,7 +32,7 @@ export class Pokemon {
   @IsString()
   nom: string;
 
-  @Column({ nullable: true })
+  @Column()
   @IsString()
   img: string;
 
