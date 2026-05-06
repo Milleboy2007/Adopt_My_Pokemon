@@ -8,4 +8,8 @@ export class UpdateUser{
     @IsString()
     @IsOptional()
     password: string
+
+    @IsString()
+    @IsOptional()
+    oldPassword: string;
 }

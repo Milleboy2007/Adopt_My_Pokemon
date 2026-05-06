@@ -19,14 +19,16 @@ export class AuthController{
     
 
     @Post('/signin')
-    async singIn(@Body() body:CreateUser, @Session() session: any){
+    async signIn(@Body() body:CreateUser, @Session() session: any){
         const user = await this.authService.signIn(body.email, body.password);
         session.userId = user.id;
         return user;
     }
 
-
-    
+    @Post('/verifMdp')
+    async verifMdp(@Body() body: { email: string; password: string }) {
+        return this.authService.verifPass(body.email, body.password);
+    }
 
     @UseGuards(AuthGuard)
     @Get('/whoami')
@@ -39,10 +41,10 @@ export class AuthController{
         session.userId = null;
     }
 
-    @UseGuards(AdmAuthGuard)
+    @UseGuards(AuthGuard)
     @Patch('update/:id')
-    updateUser(@Param('id') id: string, @Body() body: UpdateUser){
-        return this.authService.updateUser(parseInt(id), body);
+    updateUser(@Param('id') id: string, @Body() body: any) {
+        return this.authService.updateUser(+id, body);
     }
 
     

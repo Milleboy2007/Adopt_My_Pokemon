@@ -61,30 +61,54 @@ export class AuthService {
         return existingUser;
     }
 
+    async verifPass(email: string, password: string){
+        const [existingUser] = await this.usersService.findUserByEmail(email);
+        
+        if(!existingUser) throw new NotFoundException("User not found");
+
+        const [salt, storedHash] = existingUser.password.split(".");
+
+        const hash = (await scrypt(password, salt, 32)) as Buffer;
+
+        if (hash.toString("hex") !== storedHash) return false;
+
+        existingUser.log.push(new Date());
+
+        return true;
+    }
+
     whoami(userId:number){
         if (!userId) throw new NotFoundException('User not connected');
         return this.usersService.findUser(userId);
     }
 
 
-    async updateUser(id:number, attrs: Partial<User>){
-        const user = await(this.usersService.findUser(id));
+    async updateUser(id: number, attrs: Partial<User> & { oldPassword?: string }) {
+        const user = await this.usersService.findUser(id);
 
         if (!user) throw new NotFoundException("user not found");
 
-        if(attrs.password){
-            const salt = randomBytes(8).toString('hex');
-    
-            const hash = (await scrypt(attrs.password, salt, 32)) as Buffer;
-    
-            const result = salt+'.'+hash.toString('hex');
+        if (attrs.password) {
+            if (!attrs.oldPassword) {
+                throw new BadRequestException("Old password required");
+            }
 
-            attrs.password = result;
+            const [salt, storedHash] = user.password.split(".");
+            const hash = (await scrypt(attrs.oldPassword, salt, 32)) as Buffer;
+
+            if (hash.toString("hex") !== storedHash) {
+                throw new BadRequestException("Mot de passe incorrect");
+            }
+
+            const newSalt = randomBytes(8).toString('hex');
+            const newHash = (await scrypt(attrs.password, newSalt, 32)) as Buffer;
+
+            attrs.password = newSalt + "." + newHash.toString('hex');
         }
 
-        Object.assign(user, attrs);
-        console.log( attrs.password)
-        return this.usersService.updateUser(id, attrs);
+        let newAttrs = {password: attrs.password};
+
+        return this.usersService.updateUser(id, newAttrs);
     }
 
 }
