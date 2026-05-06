@@ -32,18 +32,18 @@ export class AdoptionService {
 
     if (user.permLvl >= 2) {
       throw new BadRequestException(
-        "Un administrateur ne peut pas créer une demande d'adoption client",
+        "Un administrateur ne peut pas creer une demande d'adoption client",
       );
     }
 
     const pokemon = await this.pokemonRepository.findOneBy({ id: pokemonId });
 
     if (!pokemon) {
-      throw new NotFoundException('Pokemon introuvable');
+      throw new NotFoundException("Pokemon introuvable");
     }
 
     if (pokemon.estAdopte) {
-      throw new BadRequestException('Ce Pokémon est deja adopter');
+      throw new BadRequestException("Pokemon deja adopter");
     }
 
     const existingPending = await this.adoptionRepository.findOneBy({
@@ -68,11 +68,22 @@ export class AdoptionService {
       throw new BadRequestException("Ce formulaire n'appartient pas à cet utilisateur");
     }
 
+    const raisonRejet = this.checkAutoReject(formulaire, pokemon);
+
+    let statut = AdoptionStatus.PENDING;
+    let raison = "";
+
+    if (raisonRejet) {
+      statut = AdoptionStatus.REJECTED;
+      raison = raisonRejet;
+    }
+
     const adoption = this.adoptionRepository.create({
       idClient: userId,
       idPokemon: pokemonId,
       idFormulaire: formulaireId,
-      statut: AdoptionStatus.PENDING,
+      statut: statut,
+      rejectionReason: raison,
     });
 
     return this.adoptionRepository.save(adoption);
@@ -169,6 +180,36 @@ export class AdoptionService {
     adoption.rejectionReason = reason?.trim() || "";
 
     return this.adoptionRepository.save(adoption);
+  }
+
+  private checkAutoReject(formulaire: Formulaire, pokemon: Pokemon): string | null {
+
+    // regle1: motivation est mauvaise
+    if (formulaire.motivationAdoption === "Mauvaise") {
+        return "Motivation insufisante";
+    }
+
+    // regle2: temps dispo <<
+    if (parseInt(formulaire.tempsDisponibleParJour) <= 1) {
+        return "Temps dispo insufisant (Minimum 2h de dispo)";
+    }
+
+    // regle3: Legement vs pokemon
+    const limites = {
+      'Appartement': { hauteur: 5,  poids: 64  }, //0.5m et 6.4kg
+      'Petite Maison': { hauteur: 8,  poids: 124 }, //0.8m et 12.4kg
+      'Maison Familiale': { hauteur: 10, poids: 295 }, //1m et 29.5kg
+      'Maison avec Grande Cour': { hauteur: 16, poids: 766 },//1.6m et 76.6kg
+      'Grande Maison avec Très Grande Cour': null,
+    };
+
+    const limite = limites[formulaire.typeLogement];
+
+    if (limite !== null && (pokemon.grandeur > limite.hauteur || pokemon.poids > limite.poids)) {
+      return `Ce Pokémon est trop grand ou trop lourd pour un(e) ${formulaire.typeLogement}`;
+    }
+
+    return null;
   }
 
 }
