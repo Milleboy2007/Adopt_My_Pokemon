@@ -5,6 +5,8 @@ import { CreateQuizDto } from '../dto/create-quiz.dto';
 import { AUTH } from 'sqlite3';
 import { AuthGuard } from 'src/guard/auth.guard';
 import { Difficulte } from '../data/questions.data';
+import { CurrentUser } from 'src/Module/users/decorators/current-user.decorator';
+import { User } from 'src/Module/users/user.entity';
 
 @Controller('quiz')
 export class QuizController {
@@ -20,8 +22,8 @@ export class QuizController {
     
     @UseGuards(AuthGuard)
     @Get('/:id')
-    findQuizById(@Param('id', ParseIntPipe) id:number){
-        return this.quizService.findQuizById(id);
+    findQuizById(@Param('id', ParseIntPipe) id:number, @CurrentUser() user: User) {
+        return this.quizService.findQuizById(id, user.id);
     }
 
     @UseGuards(AdmAuthGuard)
@@ -36,10 +38,9 @@ export class QuizController {
         return this.quizService.findAllQuiz()
     }
 
-    @UseGuards(AuthGuard)
-    @Post('/addCredits')
-    addRecompenseCredits(@Body() body: {userId: number, quizId: number}) {
-        return this.quizService.addRecompenseCredits(body.userId, body.quizId);
+    @Post('/credits/add')
+    addRecompenseCredits(@Body() body: {userId: number, quizId: number, credits: number, difficulte: string}) {
+        return this.quizService.addRecompenseCredits(body.userId, body.credits, body.difficulte); 
     }
 
 
