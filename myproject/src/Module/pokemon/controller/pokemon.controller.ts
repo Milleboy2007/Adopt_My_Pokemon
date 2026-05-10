@@ -69,4 +69,10 @@ export class PokemonController {
         return this.pokemonService.changePseudo(id, newPseudo);
     }
 
+    @UseGuards(AuthGuard)
+    @Post('/resetPseudo/:id')
+    resetPseudo(@Param('id', ParseIntPipe)id: number){
+        return this.pokemonService.resetPseudo(id)
+    }
+
 }

@@ -94,4 +94,10 @@ export class PokemonService {
         poke.niveau = this.calculerNiveau(poke.pointsInteraction)
         return this.pokemonRepository.save(poke)
     }
+
+    async resetPseudo(id: number){
+        const poke = await this.findOnePokemon(id)
+        poke.pseudo = ""
+        return this.pokemonRepository.save(poke)
+    }
 }
