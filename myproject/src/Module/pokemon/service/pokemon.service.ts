@@ -59,4 +59,9 @@ export class PokemonService {
     deletePokemon(id:number){
         return this.pokemonRepository.delete(id);
     }
+
+    async getMyPokemon(idClient:number){
+        const allPoke = await this.findAllPokemon()
+        return allPoke.filter(poke => poke.idClient == idClient)
+    }
 }

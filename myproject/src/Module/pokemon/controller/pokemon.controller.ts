@@ -56,4 +56,10 @@ export class PokemonController {
         return this.interactionService.getAllInteractionForOnePokemon(id);
     }
 
+    @UseGuards(AuthGuard)
+    @Get('/MyPokemons/:id')
+    getAllMyPokemon(@Param('id', ParseIntPipe) id: number){
+        return this.pokemonService.getMyPokemon(id);
+    }
+
 }
