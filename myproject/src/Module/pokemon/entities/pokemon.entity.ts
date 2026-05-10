@@ -32,6 +32,10 @@ export class Pokemon {
   @IsString()
   nom: string;
 
+  @Column({default: ""})
+  @IsString()
+  pseudo: string;
+
   @Column()
   @IsString()
   img: string;

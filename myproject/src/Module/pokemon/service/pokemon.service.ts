@@ -2,6 +2,7 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Pokemon, PokeType } from '../entities/pokemon.entity';
+import { InteractionEnum } from '../entities/interaction.entity';
 
 @Injectable()
 export class PokemonService {
@@ -61,7 +62,36 @@ export class PokemonService {
     }
 
     async getMyPokemon(idClient:number){
-        const allPoke = await this.findAllPokemon()
-        return allPoke.filter(poke => poke.idClient == idClient)
+        const allPoke = await this.findAllPokemon();
+        return allPoke.filter(poke => poke.idClient == idClient);
+    }
+
+    async changePseudo(idPokemon: number, newPseudo: string){
+        const poke = await this.findOnePokemon(idPokemon);
+        poke.pseudo = newPseudo;
+        return this.pokemonRepository.save(poke)
+    }
+
+    private calculerNiveau(pointsTotal: number): number {
+        const p = Math.max(0, pointsTotal);
+        const niveauExact = 1 + Math.log(p / 200 + 1) / Math.log(1.5);
+        return Math.floor(niveauExact);
+    }
+
+    async addPointInteraction(idPokemon: number, action: InteractionEnum){
+        const poke = await this.findOnePokemon(idPokemon)
+        switch (action){
+            case "caresse":
+                poke.pointsInteraction += 3
+                break;
+            case "nourri":
+                poke.pointsInteraction += 10
+                break;
+            case "joue":
+                poke.pointsInteraction += 5
+                break;
+        }
+        poke.niveau = this.calculerNiveau(poke.pointsInteraction)
+        return this.pokemonRepository.save(poke)
     }
 }

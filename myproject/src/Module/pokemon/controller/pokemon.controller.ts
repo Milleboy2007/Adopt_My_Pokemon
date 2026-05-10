@@ -47,7 +47,8 @@ export class PokemonController {
     @UseGuards(AuthGuard)
     @Post('/:id/newinteraction')
     newInteraction(@Param('id', ParseIntPipe) id: number, @Body() body: NewInteraction){
-        return this.interactionService.newPokeInteraction(id, body.userId, body.typeAction);
+        this.interactionService.newPokeInteraction(id, body.userId, body.typeAction);
+        return this.pokemonService.addPointInteraction(id, body.typeAction)
     }
 
     @UseGuards(AuthGuard)
@@ -60,6 +61,12 @@ export class PokemonController {
     @Get('/MyPokemons/:id')
     getAllMyPokemon(@Param('id', ParseIntPipe) id: number){
         return this.pokemonService.getMyPokemon(id);
+    }
+
+    @UseGuards(AuthGuard)
+    @Post('/pseudoChange/:id/:newPseudo')
+    changePseudo(@Param('id', ParseIntPipe)id: number, @Param('newPseudo')newPseudo: string){
+        return this.pokemonService.changePseudo(id, newPseudo);
     }
 
 }
