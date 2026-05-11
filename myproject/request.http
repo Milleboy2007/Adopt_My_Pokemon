@@ -117,10 +117,20 @@ GET http://localhost:3000/quiz/delete/7
 
 ### add recompense credits to user
 
-POST http://localhost:3000/quiz/addCredits
+POST http://localhost:3000/quiz/credits/add
 Content-Type: application/json
 
 {
     "userId": 2,
-    "quizId": 1
+    "credits": 30,
+    "difficulte": "HARD"
+}
+
+### remove recompense credits to user
+POST http://localhost:3000/quiz/credits/remove
+Content-Type: application/json
+
+{
+    "userId": 2,
+    "credits": 10
 }

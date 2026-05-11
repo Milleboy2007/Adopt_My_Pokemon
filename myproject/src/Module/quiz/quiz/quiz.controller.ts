@@ -19,6 +19,12 @@ export class QuizController {
     CreateQuiz(@Body() body: CreateQuizDto) {
     return this.quizService.createQuiz(body.titre, body.difficulte, body.recompenseCredits, body.nombreDeQuestions);
     }
+
+    @UseGuards(AuthGuard)
+    @Post('/credits/add')
+    addRecompenseCredits(@Body() body: { userId: number, credits: number, difficulte: string }) {
+        return this.quizService.addRecompenseCredits(body.userId, body.credits, body.difficulte);
+    }
     
     @UseGuards(AuthGuard)
     @Get('/:id')
@@ -38,10 +44,6 @@ export class QuizController {
         return this.quizService.findAllQuiz()
     }
 
-    @Post('/credits/add')
-    addRecompenseCredits(@Body() body: {userId: number, quizId: number, credits: number, difficulte: string}) {
-        return this.quizService.addRecompenseCredits(body.userId, body.credits, body.difficulte); 
-    }
 
 
 }
