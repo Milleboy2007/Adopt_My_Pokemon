@@ -1,8 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Interaction } from '../entities/interaction.entity';
+import { Interaction, InteractionEnum } from '../entities/interaction.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-
 
 
 @Injectable()
@@ -13,9 +12,9 @@ export class InteractionsService {
         private interactionRepository: Repository<Interaction>
     ){}
 
-    newPokeInteraction(pokemonId: number, userId: number, typeAction: string){
+    newPokeInteraction(pokemonId: number, userId: number, typeAction: InteractionEnum){
         const newInteraction = this.interactionRepository.create({pokemonId, userId, typeAction});
-
+        
         return this.interactionRepository.save(newInteraction);
     }
 
