@@ -3,6 +3,12 @@ import { IsString, IsInt } from 'class-validator';
 import { Pokemon } from './pokemon.entity';
 import { User } from 'src/Module/users/user.entity';
 
+export enum InteractionEnum{
+  CARESSE = "caresse",
+  NOURRI = "nourri",
+  JOUE = "joue"
+}
+
 @Entity()
 export class Interaction {
   @PrimaryGeneratedColumn()
@@ -10,7 +16,7 @@ export class Interaction {
 
   @Column()
   @IsString()
-  typeAction: string; // ex: "CARESSE", "NOURRI", "JOUÉ"
+  typeAction: InteractionEnum; // ex: "CARESSE", "NOURRI", "JOUÉ"
 
   @CreateDateColumn() // Remplit la date automatiquement à la création
   date: Date;
