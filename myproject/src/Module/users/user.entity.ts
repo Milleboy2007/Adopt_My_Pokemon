@@ -46,4 +46,13 @@ export class User{
     logInster(){
         console.log("Nouvel utilisateur créé")
     }
+
+    @Column({ nullable: true })
+    lastEasyQuiz: string; // "2026-05-06"
+
+    @Column({ nullable: true })
+    lastMediumQuiz: string;
+
+    @Column({ nullable: true })
+    lastHardQuiz: string;
 }

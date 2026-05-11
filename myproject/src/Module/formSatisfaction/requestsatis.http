@@ -1,0 +1,13 @@
+### creer form
+
+POST http://localhost:3000/satisfaction-form/createFormSatisfaction
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "satisfaction": ["Très satisfait"],
+    "comments": "J'ai adoré le service !"
+}
+
+### afficher form
+GET http://localhost:3000/satisfaction-form/allSatisfaction

@@ -27,7 +27,6 @@ export class PokemonController {
         return this.pokemonService.findAllPokemon();
     }
 
-    @UseGuards(AuthGuard)
     @Get('/:id')
     getOnePokemon(@Param('id', ParseIntPipe) id: number){
         return this.pokemonService.findOnePokemon(id);
