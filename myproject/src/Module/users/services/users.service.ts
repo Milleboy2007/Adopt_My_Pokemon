@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { User } from '../user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Not, Repository } from 'typeorm';
@@ -102,4 +102,37 @@ export class UsersService {
         var usr = await(this.findUser(id));
         return usr.pokemons;
     }
+
+
+    // ajout de add et supp credits pour le quiz
+    async addCredits(id:number, credits: number){
+        const user = await this.findUser(id);
+        const newCredits = user.pokecred + credits;
+        await this.updateUser(id, {pokecred: newCredits});
+        return newCredits;
+    }
+
+    // suppression de crédits, utilisée pour les quiz
+    async suppCredits(id:number, credits: number){
+        const user = await this.findUser(id);
+        if (user.pokecred < credits) throw new BadRequestException("Not enough credits");
+        const newCredits = user.pokecred - credits;        
+        await this.updateUser(id, {pokecred: newCredits});
+        return newCredits;
+    }
+
+
+    async updateQuizDate(id:number, difficulte: string){
+        const aujourdhui = new Date().toLocaleDateString('fr-CA');
+
+        const colonneParDifficulte = {
+            'EASY': 'lastEasyQuiz',
+            'MEDIUM': 'lastMediumQuiz',
+            'HARD': 'lastHardQuiz'
+        }
+
+        await this.updateUser(id, {[colonneParDifficulte[difficulte]]: aujourdhui});
+    }
+
+    
 }

@@ -106,27 +106,15 @@ export class QuizService {
         return quizzes;
     }
     
+    // Méthode pour ajouter des crédits de récompense à un utilisateur après avoir réussi un quiz
     async addRecompenseCredits(userId: number, credits: number, difficulte: string) {
-        const user = await this.userService.findUser(userId);
-        const aujourdhui = new Date().toLocaleDateString('fr-CA'); // "2026-05-06"
-        
-
-        const newCredits = user.pokecred + credits;
-
-        const colonneParDifficulte = {
-            'EASY': 'lastEasyQuiz',
-            'MEDIUM': 'lastMediumQuiz',
-            'HARD': 'lastHardQuiz'
-        }
-
-        await this.userService.updateUser(userId, 
-            {[colonneParDifficulte[difficulte]]: aujourdhui});
-        console.log('difficulte reçue:', difficulte)
-        console.log('colonne:', colonneParDifficulte[difficulte])
-
-        return newCredits;
-
+        await this.userService.addCredits(userId, credits);
+        await this.userService.updateQuizDate(userId, difficulte);
+        return {message: `Vous avez gagné ${credits} crédits !`};
     }
+
+    
+ 
     
 
 }
