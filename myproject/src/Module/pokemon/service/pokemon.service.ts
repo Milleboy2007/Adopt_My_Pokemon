@@ -27,7 +27,7 @@ export class PokemonService {
                             const poids = pokeData.weight; // hectogrammes (hg)
                             const type = pokeData.types.map(type => type.type.name);
                             const niveau = 1;
-                            const prix = 0;
+                            const prix = Math.floor(Math.random() * (50 - 20 + 1)) + 20;;
                             return await this.createPokemon(nom, img, grandeur, poids, type, niveau, prix);
                         })
                     });
