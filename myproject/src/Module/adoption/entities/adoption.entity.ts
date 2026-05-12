@@ -45,4 +45,6 @@ export class Adoption {
   @Column({ type: 'int', default: 0 })
   processedByAdminId: number;
 
+  @Column({type: 'int'})
+  prix: number;
 }

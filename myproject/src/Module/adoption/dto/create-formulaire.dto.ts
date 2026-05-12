@@ -38,4 +38,5 @@ export class CreateFormulaireDto {
   @IsString()
   @IsNotEmpty()
   gestionAdaptationPokemon: string;
+
 }
