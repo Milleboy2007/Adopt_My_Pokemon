@@ -3,7 +3,7 @@ import { IsString, IsEmail, IsOptional } from "class-validator";
 export class UpdateUser{
     @IsEmail()
     @IsOptional()
-    email: string
+    email!: string
 
     @IsString()
     @IsOptional()
@@ -20,4 +20,9 @@ export class UpdateUser{
     @IsOptional()
     @IsString()
     lastHardQuiz: string;
+    password!: string
+
+    @IsString()
+    @IsOptional()
+    oldPassword!: string;
 }

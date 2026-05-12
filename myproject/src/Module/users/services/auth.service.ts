@@ -67,24 +67,36 @@ export class AuthService {
     }
 
 
-    async updateUser(id:number, attrs: Partial<User>){
-        const user = await(this.usersService.findUser(id));
+    async updateUser(id: number, attrs: Partial<User> & { oldPassword?: string }) {
+        const user = await this.usersService.findUser(id);
 
         if (!user) throw new NotFoundException("user not found");
 
-        if(attrs.password){
-            const salt = randomBytes(8).toString('hex');
-    
-            const hash = (await scrypt(attrs.password, salt, 32)) as Buffer;
-    
-            const result = salt+'.'+hash.toString('hex');
-
-            attrs.password = result;
+        if (attrs.password) {
+            if (!attrs.oldPassword) {
+                throw new BadRequestException("Old password required");
+            }
         }
 
         Object.assign(user, attrs);
         console.log( attrs.password)
         return this.usersService.updateUser(id, attrs);
+    }
+
+    async verifPass(email: string, password: string){
+        const [existingUser] = await this.usersService.findUserByEmail(email);
+        
+        if(!existingUser) throw new NotFoundException("User not found");
+
+        const [salt, storedHash] = existingUser.password.split(".");
+
+        const hash = (await scrypt(password, salt, 32)) as Buffer;
+
+        if (hash.toString("hex") !== storedHash) return false;
+
+        existingUser.log.push(new Date());
+
+        return true;
     }
 
 }

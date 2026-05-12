@@ -1,64 +1,114 @@
-import { Body, Controller, Delete, Param, Patch, Post, Get, Session, UseGuards} from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { UsersService } from './services/users.service';
-import { CreateUser } from 'src/Module/users/dto/create-user.dto';
-import { UpdateUser } from 'src/Module/users/dto/update-user.dto';
-import { Serialize } from 'src/interceptors/serialize.inteceptor';
-import { UserDTO } from "src/Module/users/dto/user.dto";
-import { AuthService } from './services/auth.service';
-import { CurrentUser } from './decorators/current-user.decorator';
+import { randomBytes, scrypt as _scrypt } from 'crypto';
+import { promisify } from 'util';
 import { User } from './user.entity';
-import { AuthGuard } from 'src/guard/auth.guard';
-import { SuperAdmAuthGuard } from 'src/guard/superAdmAuth.guards';
-import { AdmAuthGuard } from 'src/guard/admAuth.guards';
-import { CreateAdmin } from './dto/create-admin.dto';
 
+const scrypt = promisify(_scrypt)
 
-@Controller('auth')
-export class AuthController{
-    constructor(private usersService: UsersService, private authService: AuthService){}
+@Injectable()
+export class AuthService {
+
+    constructor(private usersService: UsersService) {}
     
+    async signUp(email: string, password: string){
+        const existingUser = await this.usersService.findUserByEmail(email);
 
-    @Post('/signin')
-    async singIn(@Body() body:CreateUser, @Session() session: any){
-        const user = await this.authService.signIn(body.email, body.password);
-        session.userId = user.id;
+        if(existingUser.length) throw new BadRequestException("Email in use");
+
+        const salt = randomBytes(8).toString('hex');
+
+        const hash = (await scrypt(password, salt, 32)) as Buffer;
+
+        const result = salt+'.'+hash.toString('hex');
+
+        const user = this.usersService.createUser(email, result);
+
         return user;
+
     }
 
+    async createAdmin(email: string, password: string, permLvl: number){
+        const existingUser = await this.usersService.findUserByEmail(email);
 
-    
+        if(existingUser.length) throw new BadRequestException("Email in use");
 
-    @UseGuards(AuthGuard)
-    @Get('/whoami')
-    whoami(@CurrentUser() user: User){
+        const salt = randomBytes(8).toString('hex');
+
+        const hash = (await scrypt(password, salt, 32)) as Buffer;
+
+        const result = salt+'.'+hash.toString('hex');
+
+        const user = this.usersService.createAdmin(email, result, permLvl);
+
         return user;
+
     }
 
-    @Post('/signout')
-    singOut(@Session() session:any){
-        session.userId = null;
+    async signIn(email: string, password: string){
+        const [existingUser] = await this.usersService.findUserByEmail(email);
+        
+        if(!existingUser) throw new NotFoundException("User not found");
+
+        const [salt, storedHash] = existingUser.password.split(".");
+
+        const hash = (await scrypt(password, salt, 32)) as Buffer;
+
+        if (hash.toString("hex") !== storedHash) throw new BadRequestException('Invalide Password');
+
+        existingUser.log.push(new Date());
+
+        return existingUser;
     }
 
-    @UseGuards(AdmAuthGuard)
-    @Patch('update/:id')
-    updateUser(@Param('id') id: string, @Body() body: UpdateUser){
-        return this.authService.updateUser(parseInt(id), body);
+    async verifPass(email: string, password: string){
+        const [existingUser] = await this.usersService.findUserByEmail(email);
+        
+        if(!existingUser) throw new NotFoundException("User not found");
+
+        const [salt, storedHash] = existingUser.password.split(".");
+
+        const hash = (await scrypt(password, salt, 32)) as Buffer;
+
+        if (hash.toString("hex") !== storedHash) return false;
+
+        existingUser.log.push(new Date());
+
+        return true;
     }
 
-    
-
-    @UseGuards(SuperAdmAuthGuard)
-    @Post('/createAdmin')
-    async createAdmim(@Body() body:CreateAdmin, @Session() session: any){
-        const user = await this.authService.createAdmin(body.email, body.password, body.permLvl);
-        session.userId = user.id;
-        return user;
+    whoami(userId:number){
+        if (!userId) throw new NotFoundException('User not connected');
+        return this.usersService.findUser(userId);
     }
 
-    @Post('/signup')
-    async createUser(@Body() body:CreateUser, @Session() session: any){
-        const user = await this.authService.signUp(body.email, body.password);
-        session.userId = user.id;
-        return user;
+
+    async updateUser(id: number, attrs: Partial<User> & { oldPassword?: string }) {
+        const user = await this.usersService.findUser(id);
+
+        if (!user) throw new NotFoundException("user not found");
+
+        if (attrs.password) {
+            if (!attrs.oldPassword) {
+                throw new BadRequestException("Old password required");
+            }
+
+            const [salt, storedHash] = user.password.split(".");
+            const hash = (await scrypt(attrs.oldPassword, salt, 32)) as Buffer;
+
+            if (hash.toString("hex") !== storedHash) {
+                throw new BadRequestException("Mot de passe incorrect");
+            }
+
+            const newSalt = randomBytes(8).toString('hex');
+            const newHash = (await scrypt(attrs.password, newSalt, 32)) as Buffer;
+
+            attrs.password = newSalt + "." + newHash.toString('hex');
+        }
+
+        let newAttrs = {password: attrs.password};
+
+        return this.usersService.updateUser(id, newAttrs);
     }
+
 }
