@@ -96,6 +96,7 @@ export class AdoptionService {
       idFormulaire: formulaireId,
       statut: statut,
       rejectionReason: raison,
+      prix: pokemon.prix
     });
 
     return this.adoptionRepository.save(adoption);
