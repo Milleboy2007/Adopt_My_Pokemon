@@ -22,7 +22,7 @@ export class PokemonService {
                         .then(rep => rep.json())
                         .then(async pokeData => {
                             const nom = pokeData.name;
-                            const img = pokeData.sprites.other.home.front_default;
+                            const img = pokeData.sprites.other.showdown.front_default || pokeData.sprites.other['official-artwork'].front_default || pokeData.sprites.front_default || pokeData.sprites.other.home.front_default || 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png';
                             const grandeur = pokeData.height; // décimètres (dm)
                             const poids = pokeData.weight; // hectogrammes (hg)
                             const type = pokeData.types.map(type => type.type.name);

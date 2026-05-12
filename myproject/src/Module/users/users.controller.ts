@@ -1,7 +1,5 @@
 import { Body, Controller, Delete, Param, Patch, Post, Get, Session, UseGuards} from '@nestjs/common';
 import { UsersService } from './services/users.service';
-import { CreateUser } from 'src/Module/users/dto/create-user.dto';
-import { UpdateUser } from 'src/Module/users/dto/update-user.dto';
 import { Serialize } from 'src/interceptors/serialize.inteceptor';
 import { UserDTO } from "src/Module/users/dto/user.dto";
 import { AuthService } from './services/auth.service';
@@ -10,8 +8,6 @@ import { User } from './user.entity';
 import { AuthGuard } from 'src/guard/auth.guard';
 import { SuperAdmAuthGuard } from 'src/guard/superAdmAuth.guards';
 import { AdmAuthGuard } from 'src/guard/admAuth.guards';
-import { CreateAdmin } from './dto/create-admin.dto';
-import { parse } from 'path';
 
 @Controller('users')
 export class UsersController {
