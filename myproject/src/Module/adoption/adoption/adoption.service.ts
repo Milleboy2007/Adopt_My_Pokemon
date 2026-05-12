@@ -173,15 +173,27 @@ export class AdoptionService {
       throw new BadRequestException('Ce Pokemon a deja ete adopter');
     }
 
-    adoption.statut = AdoptionStatus.APPROVED;
-    adoption.processedByAdminId = adminId;
-    adoption.rejectionReason = '';
+    const user = await this.usersRepository.findOneBy({id: adoption.idClient})
+    if(!user){
+      throw new NotFoundException('Utilisateur introuvable');
+    }
 
-    pokemon.estAdopte = true;
-    pokemon.idClient = adoption.idClient;
+    if(user.pokecred >= pokemon.prix){
+      adoption.statut = AdoptionStatus.APPROVED;
+      adoption.processedByAdminId = adminId;
+      adoption.rejectionReason = "";
 
-    await this.pokemonRepository.save(pokemon);
-    await this.adoptionRepository.save(adoption);
+      pokemon.estAdopte = true;
+      pokemon.idClient = adoption.idClient;
+
+      user.pokecred -= pokemon.prix;
+
+      await this.pokemonRepository.save(pokemon);
+      await this.adoptionRepository.save(adoption);
+      await this.usersRepository.save(user);
+    }else {
+      throw new BadRequestException("L'utilisateur ne possède pas assez de poke credit");
+    }
 
     return adoption;
   }

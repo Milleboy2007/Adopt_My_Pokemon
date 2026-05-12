@@ -133,4 +133,16 @@ export class UsersController {
     getClientPokemons(@Param('id') id:string){
         return this.usersService.getPokemons(parseInt(id));
     }
+
+   @UseGuards(AuthGuard)
+    @Patch('me/suppCredits')
+    suppCredits(@CurrentUser() user: User, @Body() body: { credits: number }) {
+        return this.usersService.suppCredits(user.id, body.credits);
+    }
+
+    @UseGuards(AdmAuthGuard)
+    @Patch(':id/addCredits')
+    addCredits(@Param('id') id: string, @Body() body: { credits: number }) {
+        return this.usersService.addCredits(parseInt(id), body.credits);
+    }
 }

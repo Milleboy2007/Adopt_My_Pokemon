@@ -1,10 +1,11 @@
 import { IsString, IsNotEmpty, IsInt } from 'class-validator';
+import { InteractionEnum } from '../entities/interaction.entity';
 
 export class NewInteraction{
     
     @IsNotEmpty()
     @IsString()
-    typeAction: string; // ex: "CARESSE", "NOURRI", "JOUÉ"
+    typeAction: InteractionEnum; // ex: "CARESSE", "NOURRI", "JOUÉ"
 
     @IsNotEmpty()
     @IsInt()
