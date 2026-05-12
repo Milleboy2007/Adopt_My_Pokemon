@@ -2,8 +2,8 @@ import { Expose } from "class-transformer"
 
 export class UserDTO{
     @Expose()
-    id: number;
+    id!: number;
 
     @Expose()
-    email: string;
+    email!: string;
 }
