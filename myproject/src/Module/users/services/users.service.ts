@@ -104,7 +104,6 @@ export class UsersService {
     }
 
 
-    // ajout de add et supp credits pour le quiz
     async addCredits(id:number, credits: number){
         const user = await this.findUser(id);
         const newCredits = user.pokecred + credits;
@@ -112,7 +111,6 @@ export class UsersService {
         return newCredits;
     }
 
-    // suppression de crédits, utilisée pour les quiz
     async suppCredits(id:number, credits: number){
         const user = await this.findUser(id);
         if (user.pokecred < credits) throw new BadRequestException("Not enough credits");
