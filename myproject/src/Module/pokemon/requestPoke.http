@@ -18,7 +18,7 @@ Content-Type: application/json
     "poids": 21,
     "type": ["fire"],
     "niveau": 100,
-    "prix": 1234
+    "prix": 1
 }
 
 ### Delete un pokemon par id
