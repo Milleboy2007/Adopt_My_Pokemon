@@ -1,4 +1,4 @@
-import { IsString, IsNumber, Min, IsArray, IsNotEmpty, IsPositive, ArrayNotEmpty, IsInt, IsIn } from 'class-validator';
+import { IsString, IsNumber, Min, IsNotEmpty, IsPositive, IsInt } from 'class-validator';
 
 
 export class CreateQuizDto{

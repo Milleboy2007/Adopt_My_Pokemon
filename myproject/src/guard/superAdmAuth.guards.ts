@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
+import { CanActivate, ExecutionContext } from "@nestjs/common";
 
 export class SuperAdmAuthGuard implements CanActivate{
 

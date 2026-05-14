@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { User } from '../user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Not, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class UsersService {
@@ -22,7 +22,7 @@ export class UsersService {
 
     async findUser(id:number){
         
-        const user = await(this.usersRepository.findOneBy({id}));
+        const user = await this.usersRepository.findOneBy({id});
 
         if(!user) throw new NotFoundException("user not found");
 
@@ -30,7 +30,7 @@ export class UsersService {
     }
 
     async findAllUsers(){
-        const allUser = await(this.usersRepository.find());
+        const allUser = await this.usersRepository.find();
 
         if(allUser.length == 0) throw new NotFoundException("No users found");
 
@@ -38,9 +38,9 @@ export class UsersService {
     }
 
     async findAllClients(){
-        const allUsers = await(this.usersRepository.find());
+        const allUsers = await this.usersRepository.find();
 
-        if(allUsers.length ==0) throw new NotFoundException("No clients found");
+        if(allUsers.length == 0) throw new NotFoundException("No clients found");
 
         const allClients = allUsers.filter(c => c.permLvl === 1);
 
@@ -74,32 +74,32 @@ export class UsersService {
     }
 
     async getLogs(id:number){
-        var usr = await(this.findUser(id));
+        var usr = await this.findUser(id);
         return usr.log;
     }
 
     async getInteractions(id:number){
-        var usr = await(this.findUser(id));
+        var usr = await this.findUser(id);
         return usr.interactions;
     }
 
     async getAdoptions(id:number){
-        var usr = await(this.findUser(id));
+        var usr = await this.findUser(id);
         return usr.adoptions;
     }
 
     async getForms(id:number){
-        var usr = await(this.findUser(id));
+        var usr = await this.findUser(id);
         return usr.forms;
     }
 
     async getTransactions(id:number){
-        var usr = await(this.findUser(id));
+        var usr = await this.findUser(id);
         return usr.transactions;
     }
 
     async getPokemons(id:number){
-        var usr = await(this.findUser(id));
+        var usr = await this.findUser(id);
         return usr.pokemons;
     }
 

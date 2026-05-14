@@ -1,5 +1,4 @@
-import { Body, Controller, Delete, Param, Patch, Post, Get, Session, UseGuards} from '@nestjs/common';
-import { UsersService } from './services/users.service';
+import { Body, Controller, Param, Patch, Post, Get, Session, UseGuards} from '@nestjs/common';
 import { CreateUser } from 'src/Module/users/dto/create-user.dto';
 import { AuthService } from './services/auth.service';
 import { CurrentUser } from './decorators/current-user.decorator';
@@ -12,7 +11,7 @@ import { UpdateUser } from './dto/update-user.dto';
 
 @Controller('auth')
 export class AuthController{
-    constructor(private usersService: UsersService, private authService: AuthService){}
+    constructor( private authService: AuthService){}
     
 
     @Post('/signin')

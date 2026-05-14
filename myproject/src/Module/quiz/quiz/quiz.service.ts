@@ -4,8 +4,6 @@ import { Repository } from 'typeorm';
 import { Quiz } from '../entities/quiz.entity';
 import { questionsData, Difficulte } from '../data/questions.data';
 import { UsersService } from 'src/Module/users/services/users.service';
-import { diff } from 'node:util';
-
 
 
 @Injectable()

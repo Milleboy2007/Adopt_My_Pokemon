@@ -1,40 +1,58 @@
 # ------------------------------------------------ CONTROLLER USER ------------------------------------------------
 ### Obtenir tous les utilisateurs
 GET http://localhost:3000/users
+
 ### Obtenir tous les clients
 GET http://localhost:3000/users/clients
+
 ### Obtenir tous les admins
 GET http://localhost:3000/users/admins
+
 ### Obtenir un seul utilisateur
 GET http://localhost:3000/users/2
+
 ### Supprimer son compte
 DELETE http://localhost:3000/users/me
+
 ### Supprimer tous les comptes
 DELETE http://localhost:3000/users/delall
+
 ### Supprimer un compte spécifique
 DELETE http://localhost:3000/users/del/3
+
 ### Obtenir les logs d'un client
 GET http://localhost:3000/users/2/log
+
 ### Obtenir les interactions d'un client
 GET http://localhost:3000/users/2/interactions
+
 ### Obtenir les adoptions d'un client
 GET http://localhost:3000/users/2/adoptions
+
 ### Obtenir mes propres adoptions
 GET http://localhost:3000/users/myAdoptions
+
 ### Obtenir les forms remplis d'un client
 GET http://localhost:3000/users/forms
+
 ### Obtenir mes credits
 GET http://localhost:3000/users/myCreds
+
 ### Obtenir les credits d'un client
 GET http://localhost:3000/users/2/creds
+
 ### Obtenir toutes les transactions d'un client
 GET http://localhost:3000/users/2/transactions
+
 ### Obtenir toutes mes transactions
 GET http://localhost:3000/users/myTransactions
+
 ### Obtenir toutes mes Pokémons
 GET http://localhost:3000/users/myPokemons
+
 ### Obtenir les pokemons d'un client
 GET http://localhost:3000/users/2/pokemons
+
 # ------------------------------------------------ CONTROLLER AUTH ------------------------------------------------
 ### create user
 POST http://localhost:3000/auth/signup
@@ -59,7 +77,8 @@ PATCH http://localhost:3000/auth/update/2
 Content-Type: application/json
 
 {
-    "pokecred": "100"
+    "email": "tola@gmail.com",
+    "password": 1234
 }
 
 ### create user
@@ -90,8 +109,10 @@ Content-Type: application/json
 
 ### sign out
 POST http://localhost:3000/auth/signout
+
 ### who am i 
 GET http://localhost:3000/auth/whoami
+
 ### create Super admin
 POST http://localhost:3000/auth/createAdmin
 Content-Type: application/json

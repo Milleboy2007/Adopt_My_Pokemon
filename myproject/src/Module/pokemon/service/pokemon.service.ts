@@ -37,15 +37,15 @@ export class PokemonService {
     }
 
     async findAllPokemon(){
-        const allPoke = await(this.pokemonRepository.find());
+        const allPoke = await this.pokemonRepository.find();
 
-        if(allPoke.length == 0) throw new NotFoundException("none pokemon found");
+        if(allPoke.length == 0) throw new NotFoundException("None pokemon found");
 
         return allPoke;
     }
 
     async findOnePokemon(id:number){
-        const poke = await(this.pokemonRepository.findOneBy({id}));
+        const poke = await this.pokemonRepository.findOneBy({id});
 
         if(!poke) throw new NotFoundException("Pokemon not found");
 

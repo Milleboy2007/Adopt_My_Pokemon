@@ -2,9 +2,7 @@ import { Body, Controller, Param, ParseIntPipe, Post, UseGuards, Get } from '@ne
 import { QuizService } from './quiz.service';
 import { AdmAuthGuard } from 'src/guard/admAuth.guards';
 import { CreateQuizDto } from '../dto/create-quiz.dto';
-import { AUTH } from 'sqlite3';
 import { AuthGuard } from 'src/guard/auth.guard';
-import { Difficulte } from '../data/questions.data';
 import { CurrentUser } from 'src/Module/users/decorators/current-user.decorator';
 import { User } from 'src/Module/users/user.entity';
 
@@ -43,7 +41,5 @@ export class QuizController {
     findAllQuiz() {
         return this.quizService.findAllQuiz()
     }
-
-
 
 }

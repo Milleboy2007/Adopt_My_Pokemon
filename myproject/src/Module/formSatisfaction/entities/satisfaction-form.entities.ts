@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { IsArray, IsEnum, IsInt, IsOptional, IsString} from 'class-validator';
+import { IsEnum, IsInt, IsOptional, IsString} from 'class-validator';
 
 export enum SatisfactionLevel {
   TRES_SATISFAIT = "Très satisfait",
@@ -8,7 +8,6 @@ export enum SatisfactionLevel {
   INSATISFAIT = "Insatisfait",
   TRES_INSATISFAIT = "Très insatisfait",
 }
-
 
 @Entity()
 export class SatisfactionForm {

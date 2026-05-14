@@ -1,6 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { IsString, IsInt, IsBoolean, Min, IsArray, IsIn } from 'class-validator';
-import { Interaction } from './interaction.entity';
 
 export enum PokeType{
   Normal = "normal",
