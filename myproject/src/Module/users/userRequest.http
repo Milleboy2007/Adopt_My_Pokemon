@@ -59,8 +59,7 @@ PATCH http://localhost:3000/auth/update/2
 Content-Type: application/json
 
 {
-    "email": "tola@gmail.com",
-    "password": "124"
+    "pokecred": "100"
 }
 
 ### create user

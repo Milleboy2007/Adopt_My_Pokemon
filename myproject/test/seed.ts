@@ -37,13 +37,7 @@ async function bootstrap() {
 
     console.log('Creation de quiz')
     await quizService.createQuiz("Quiz - Pokémon-Easy", 'EASY', 10, 5)
-    await quizService.createQuiz("Quiz - Pokémon-Easy", 'EASY', 10, 5)
-    await quizService.createQuiz("Quiz - Pokémon-Easy", 'EASY', 10, 5)
     await quizService.createQuiz("Quiz - Pokémon-Medium", 'Medium', 25, 5)
-    await quizService.createQuiz("Quiz - Pokémon-Medium", 'Medium', 25, 5)
-    await quizService.createQuiz("Quiz - Pokémon-Medium", 'Medium', 25, 5)
-    await quizService.createQuiz("Quiz - Pokémon-Hard", 'HARD', 50, 5)
-    await quizService.createQuiz("Quiz - Pokémon-Hard", 'HARD', 50, 5)
     await quizService.createQuiz("Quiz - Pokémon-Hard", 'HARD', 50, 5)
 
     console.log('✅ Base de données initialisée avec succès !');
