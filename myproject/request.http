@@ -14,25 +14,6 @@ Content-Type: application/json
     "prix": 100
 }
 
-### Delete pokemon 1
-DELETE http://localhost:3000/pokemons/delete/1
-
-### Create pokemon
-POST http://localhost:3000/pokemons/create
-Content-Type: application/json
-
-{
-    "nom": "Pikachu",
-    "grandeur": 40,
-    "poids": 6,
-    "type": ["Electrik"],
-    "niveau": 5,
-    "prix": 100
-}
-
-### Delete pokemon 1
-DELETE http://localhost:3000/pokemons/delete/1
-
 ### Create adoption
 POST http://localhost:3000/adoptions/create
 Content-Type: application/json
@@ -111,30 +92,9 @@ Content-Type: application/json
 GET http://localhost:3000/quiz/3
 
 ### delete quiz by id
-
 GET http://localhost:3000/quiz/delete/1
 
-###
-GET http://localhost:3000/quiz/delete/2
-###
-GET http://localhost:3000/quiz/delete/3
-###
-GET http://localhost:3000/quiz/delete/4
-###
-GET http://localhost:3000/quiz/delete/5
-###
-GET http://localhost:3000/quiz/delete/6
-###
-GET http://localhost:3000/quiz/delete/7
-###
-GET http://localhost:3000/quiz/delete/8
-###
-GET http://localhost:3000/quiz/delete/9
-
-
-
 ### add recompense credits to user
-
 POST http://localhost:3000/quiz/credits/add
 Content-Type: application/json
 
